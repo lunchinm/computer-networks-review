@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>第1章 概述 · 计算机网络知识清单</title>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\(', '\)']],
+    displayMath: [['$$', '$$'], ['\[', '\]']]
+  }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"></script>
+<style>
+/* === ExamPass Shared Styles === */
+/* Paper-like warm background, clean typography, responsive */
+
+:root {
+  --paper: #fdf6e3;
+  --paper-dark: #f5ecd7;
+  --ink: #2c2c2c;
+  --ink-light: #555;
+  --accent: #2563eb;
+  --accent-hover: #1d4ed8;
+  --divider: #d6c8a8;
+  --card-bg: #fef9ef;
+  --card-border: #e8dcc8;
+  --correct: #22c55e;
+  --correct-bg: #f0fdf4;
+  --wrong: #ef4444;
+  --wrong-bg: #fef2f2;
+  --tag-bg: #fef3c7;
+  --tag-text: #92400e;
+  --radius: 6px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  font-family: "Microsoft YaHei", "Noto Sans SC", "SimSun", sans-serif;
+  font-size: 12pt; line-height: 1.75; color: var(--ink);
+  max-width: 860px; margin: auto; padding: 24px 20px 60px;
+  background: var(--paper);
+}
+
+@media print {
+  body { font-size: 10.5pt; background: #fff; }
+  .no-print { display: none !important; }
+  h1, h2, h3 { page-break-after: avoid; }
+}
+
+/* ── Header ── */
+#exampass-header {
+  display: flex; justify-content: space-between; align-items: baseline;
+  padding: 6px 0; margin-bottom: 0;
+}
+.header-brand { font-size: 1.2em; font-weight: 700; color: #1a1a2e; letter-spacing: 0.3px; }
+.header-url  { font-size: 0.78em; color: #999; }
+.header-divider { border: none; border-top: 2px solid var(--divider); margin: 4px 0 20px 0; }
+
+/* ── Typography ── */
+h1 { font-size: 1.55em; text-align: center; border-bottom: 2px solid var(--divider); padding-bottom: 8px; margin-top: 0; }
+h2 { font-size: 1.25em; border-bottom: 1px solid var(--divider); padding-bottom: 4px; margin-top: 28px; }
+h3 { font-size: 1.08em; margin-top: 20px; color: var(--ink); }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ── Tables ── */
+table { border-collapse: collapse; width: 100%; margin: 10px 0; font-size: 0.95em; }
+td, th { border: 1px solid var(--card-border); padding: 5px 9px; text-align: left; }
+th { background: var(--paper-dark); font-weight: 700; }
+
+/* ── Knowledge point vs explanation ── */
+.kp { font-weight: 700; color: var(--ink); }           /* key point: bold dark */
+.exp { font-weight: 400; color: var(--ink-light); }    /* explanation: lighter */
+.exp em, .exp strong { color: var(--ink); }             /* emphasis inside explanation */
+
+/* ── Block elements ── */
+blockquote {
+  border-left: 3px solid #c0392b; background: #fef9ef;
+  padding: 6px 14px; margin: 10px 0; font-size: 0.95em;
+}
+code { background: #f0ede0; padding: 2px 5px; border-radius: 3px; font-size: 0.92em; }
+pre { background: #f0ede0; padding: 10px; border-radius: var(--radius); overflow-x: auto; }
+
+/* ── TOC ── */
+div.toc {
+  background: var(--card-bg); padding: 14px 18px;
+  border: 1px solid var(--card-border); border-radius: var(--radius); margin-bottom: 22px;
+}
+div.toc ul { padding-left: 18px; }
+div.toc li { margin: 3px 0; font-size: 0.95em; }
+
+/* ── Priority tags ── */
+.tag-must   { background: #fee2e2; color: #991b1b; padding: 1px 6px; border-radius: 3px; font-size: 0.82em; font-weight: 600; }
+.tag-key    { background: #fef3c7; color: #92400e; padding: 1px 6px; border-radius: 3px; font-size: 0.82em; font-weight: 600; }
+.tag-freq   { background: #dbeafe; color: #1e40af; padding: 1px 6px; border-radius: 3px; font-size: 0.82em; font-weight: 600; }
+.tag-info   { background: #f0fdf4; color: #166534; padding: 1px 6px; border-radius: 3px; font-size: 0.82em; font-weight: 600; }
+
+
+</style>
+</head>
+<body>
+
+<header id="exampass-header">
+  <div class="header-left"><span class="header-brand">ExamPass Assistant</span></div>
+  <div class="header-right"><span class="header-url">github.com/WUBING2023/ExamPass-Assistant</span></div>
+</header>
+<hr class="header-divider">
+
+<h1>第1章 概述 · 计算机网络知识清单</h1>
+<div class="toc">
+<h2>目录</h2>
+<ul>
+<li><a href="#s78287933">1.1 计算机网络的基本概念</a></li>
+  <li><a href="#s87534625">计算机网络的定义 重点</a></li>
+  <li><a href="#s57531088">互连网 vs 互联网 必考</a></li>
+  <li><a href="#s28151884">互联网的两大组成部分 重点</a></li>
+  <li><a href="#s67365289">计算机通信的两种方式 必考</a></li>
+  <li><a href="#s56881308">计算机网络的分类 高频</a></li>
+  <li><a href="#s11336210">计算机网络的性能指标 必考</a></li>
+  <li><a href="#s19677371">时延的四部分组成 必考</a></li>
+<li><a href="#s76691705">1.2 计算机网络体系结构</a></li>
+  <li><a href="#s75461865">协议的概念 重点</a></li>
+  <li><a href="#s37674844">协议与服务的区别 必考</a></li>
+  <li><a href="#s31937961">三种网络体系结构 必考</a></li>
+  <li><a href="#s28095442">TCP/IP 协议族的沙漏形状 重点</a></li>
+  <li><a href="#s17826348">数据在各层之间的传递过程 重点</a></li>
+<li><a href="#s21947200">1.3 互联网的核心技术</a></li>
+  <li><a href="#s46324210">分组交换技术 必考</a></li>
+  <li><a href="#s91409431">ISP 的三层结构 高频</a></li>
+</ul>
+</div>
+<h2 id="s78287933">1.1 计算机网络的基本概念</h2>
+
+<h3 id="s87534625">计算机网络的定义 <span class="tag-key">重点</span></h3>
+<p><span class="kp">计算机网络</span><span class="exp">——把许多计算机连接在一起，实现资源共享和数据通信的系统。</span>计算机网络由若干<span class="kp">结点</span>（计算机、集线器、交换机、路由器等）和连接这些结点的<span class="kp">链路</span>组成。</p>
+<img src="../../_images/page4_img1.jpeg" alt="课件图片 第4页" loading="lazy" style="max-width:100%;margin:1em 0;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.1)">
+<h3 id="s57531088">互连网 vs 互联网 <span class="tag-must">必考</span></h3>
+<p><strong>是什么？</strong></p>
+<ul>
+<li><span class="kp">internet（互连网）</span><span class="exp">——通用名词，小写 i 开头，泛指由多个计算机网络互连而成的网络，通信协议可以是任意的。</span></li>
+<li><span class="kp">Internet（互联网/因特网）</span><span class="exp">——专用名词，大写 I 开头，指当前全球最大的、开放的、采用 TCP/IP 协议族的特定计算机网络，其前身是美国的 ARPANET。</span></li>
+</ul>
+<p><strong>核心关系</strong>：<span class="kp">互联网是互连网的特例</span>——互联网采用 TCP/IP 协议族，而互连网不限定协议。</p>
+<blockquote>易错：考试常出判断题——「互连网和互联网是同一概念的不同译名」，这是错误的。internet 是通用名词，Internet 是专有名词。另一个常见陷阱：说「互联网的前身是 ARPANET」是对的，说「互连网的前身是 ARPANET」是错的。</blockquote>
+<h3 id="s28151884">互联网的两大组成部分 <span class="tag-key">重点</span></h3>
+<p><strong>是什么？</strong>互联网按工作方式可划分为：</p>
+<ul>
+<li><span class="kp">边缘部分</span><span class="exp">——由连接在互联网上的主机组成，主机进行信息处理。用户直接使用。</span></li>
+<li><span class="kp">核心部分</span><span class="exp">——由大量网络和路由器组成，路由器按存储转发方式进行分组交换，为边缘部分提供连通性和交换服务。</span></li>
+</ul>
+<p><strong>为什么这样划分？</strong>复杂系统的设计遵循「端到端」原则——把复杂功能放在边缘（主机），把简单的数据转发功能放在核心（路由器）。这样核心部分可以做得极简单高效，而应用的复杂性由边缘主机承担。</p>
+<h3 id="s67365289">计算机通信的两种方式 <span class="tag-must">必考</span></h3>
+<table>
+<tr><th></th><th>客户—服务器方式（C/S）</th><th>对等方式（P2P）</th></tr>
+<tr><td>角色</td><td>客户是服务请求方，服务器是服务提供方</td><td>每个主机既是客户又是服务器</td></tr>
+<tr><td>通信关系</td><td>客户主动发起，服务器被动等待</td><td>对等实体之间直接通信</td></tr>
+<tr><td>典型应用</td><td>Web浏览、电子邮件、FTP</td><td>BitTorrent、区块链</td></tr>
+<tr><td>可扩展性</td><td>受服务器性能限制</td><td>规模越大性能越好（自扩展性）</td></tr>
+</table>
+<blockquote>易错：「计算机通信」实际上是指<span class="kp">进程之间的通信</span>——主机 A 的某个进程和主机 B 上的另一个进程进行通信。不是说两台计算机本身在通信。</blockquote>
+<h3 id="s56881308">计算机网络的分类 <span class="tag-freq">高频</span></h3>
+<p>按作用范围划分：</p>
+<table>
+<tr><th>类型</th><th>覆盖范围</th><th>典型应用</th></tr>
+<tr><td>广域网 WAN</td><td>几十~几千公里</td><td>互联网骨干网</td></tr>
+<tr><td>城域网 MAN</td><td>5~50公里</td><td>城市宽带</td></tr>
+<tr><td>局域网 LAN</td><td>约1公里以内</td><td>校园网、企业网</td></tr>
+<tr><td>个人区域网 PAN</td><td>约10米</td><td>蓝牙设备互连</td></tr>
+</table>
+<span class="tag-freq">高频</span>
+<h3 id="s11336210">计算机网络的性能指标 <span class="tag-must">必考</span></h3>
+<table>
+<tr><th>指标</th><th>定义</th><th>公式/说明</th></tr>
+<tr><td><span class="kp">速率</span></td><td>数据的传送速率（数据率/比特率）</td><td>单位：bit/s (bps), kbps, Mbps, Gbps</td></tr>
+<tr><td><span class="kp">带宽</span></td><td>某信道允许通过的频带宽度 / 最高数据率</td><td>单位：Hz（模拟）/ bps（数字）</td></tr>
+<tr><td><span class="kp">吞吐量</span></td><td>单位时间内通过某个网络的实际数据量</td><td>受带宽或额定速率的限制</td></tr>
+<tr><td><span class="kp">时延</span></td><td>数据从一端传送到另一端所需时间</td><td>见下方详细分解</td></tr>
+<tr><td><span class="kp">时延带宽积</span></td><td>传播时延 × 带宽</td><td>管道中容纳的比特数</td></tr>
+<tr><td><span class="kp">往返时间 RTT</span></td><td>数据双向交互一次所需时间</td><td>= 2 × 传播时延 + 处理时间</td></tr>
+<tr><td><span class="kp">利用率</span></td><td>信道有数据通过的时间比例</td><td>信道利用率并非越高越好——过高则时延急剧增大</td></tr>
+</table>
+<img src="../../_images/page6_img1.jpeg" alt="课件图片 第6页" loading="lazy" style="max-width:100%;margin:1em 0;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.1)">
+<h3 id="s19677371">时延的四部分组成 <span class="tag-must">必考</span></h3>
+<p>总时延 = <span class="kp">发送时延</span> + <span class="kp">传播时延</span> + <span class="kp">处理时延</span> + <span class="kp">排队时延</span></p>
+<table>
+<tr><th>类型</th><th>公式</th><th>决定因素</th></tr>
+<tr><td>发送时延</td><td>$D_{send} = \\frac{\\text{数据帧长度（bit）}}{\\text{发送速率（bit/s）}}$</td><td>发送速率和帧长</td></tr>
+<tr><td>传播时延</td><td>$D_{prop} = \\frac{\\text{信道长度（m）}}{\\text{电磁波传播速率（m/s）}}$</td><td>距离和介质（光纤约 $2.0 \\times 10^8$ m/s）</td></tr>
+<tr><td>处理时延</td><td>路由器处理分组的时间</td><td>路由器性能</td></tr>
+<tr><td>排队时延</td><td>分组在路由器队列中等待的时间</td><td>网络拥塞程度</td></tr>
+</table>
+<blockquote>易错：发送时延和传播时延是完全不同的概念。发送时延取决于「发出数据」的速度（和帧长/速率有关），传播时延取决于「数据在介质中跑」的速度（和距离有关）。例如：发送 1MB 文件在 1Mbps 链路上发送时延约 8.4s，但在光纤中传播 1000km 的传播时延仅约 5ms。</blockquote>
+<h2 id="s76691705">1.2 计算机网络体系结构</h2>
+
+<h3 id="s75461865">协议的概念 <span class="tag-key">重点</span></h3>
+<p><span class="kp">网络协议</span><span class="exp">——为进行网络中的数据交换而建立的规则、标准或约定。</span>协议的三要素：</p>
+<ul>
+<li><span class="kp">语法</span>——数据与控制信息的结构或格式</li>
+<li><span class="kp">语义</span>——需要发出何种控制信息、完成何种动作、做出何种响应</li>
+<li><span class="kp">同步</span>——事件实现顺序的详细说明</li>
+</ul>
+<h3 id="s37674844">协议与服务的区别 <span class="tag-must">必考</span></h3>
+<table>
+<tr><th>维度</th><th>协议</th><th>服务</th></tr>
+<tr><td>方向</td><td>是<span class="kp">水平的</span></td><td>是<span class="kp">垂直的</span></td></tr>
+<tr><td>可见性</td><td>对上面的服务用户<span class="kp">透明</span>（看不见）</td><td>上层使用服务原语获得下层所提供的服务</td></tr>
+<tr><td>关系</td><td>协议的实现保证了能够向上一层提供服务</td><td>服务用户只能看见服务，无法看见下面的协议</td></tr>
+</table>
+<p><strong>通俗理解</strong>：<span class="exp">协议是「同级之间怎么对话」的约定，服务是「下层给上层提供什么功能」的接口。</span></p>
+<blockquote>易错：「协议和服务在概念上是一样的」是错误判断题。两者概念不同——协议是水平的（同层通信），服务是垂直的（下层为上层提供）。</blockquote>
+<img src="../../_images/page7_img1.jpeg" alt="课件图片 第7页" loading="lazy" style="max-width:100%;margin:1em 0;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.1)">
+<h3 id="s31937961">三种网络体系结构 <span class="tag-must">必考</span></h3>
+<table>
+<tr><th>OSI 七层</th><th>TCP/IP 四层</th><th>五层协议（教学用）</th></tr>
+<tr><td>应用层</td><td rowspan="3">应用层</td><td>应用层</td></tr>
+<tr><td>表示层</td><td>运输层</td></tr>
+<tr><td>会话层</td><td>网络层</td></tr>
+<tr><td>运输层</td><td>运输层</td><td></td></tr>
+<tr><td>网络层</td><td>网际层 IP</td><td>数据链路层</td></tr>
+<tr><td>数据链路层</td><td rowspan="2">网络接口层</td><td>物理层</td></tr>
+<tr><td>物理层</td><td></td></tr>
+</table>
+<p><strong>记忆口诀</strong>：<span class="kp">五层——物数网运应</span>（物理层、数据链路层、网络层、运输层、应用层），自下而上逐层封装。</p>
+<img src="../../_images/page5_img1.jpeg" alt="课件图片 第5页" loading="lazy" style="max-width:100%;margin:1em 0;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.1)">
+<h3 id="s28095442">TCP/IP 协议族的沙漏形状 <span class="tag-key">重点</span></h3>
+<p><span class="kp">Everything over IP</span><span class="exp">——IP 层可以支持多种运输层协议和应用层协议。</span></p>
+<p><span class="kp">IP over Everything</span><span class="exp">——IP 协议可以在多种类型的网络上运行。</span></p>
+<p>设计理念：<span class="kp">网络核心部分越简单越好</span>——IP 层只提供无连接的、尽最大努力交付的数据报服务。复杂度放在端系统中。</p>
+<img src="../../_images/page10_img1.jpeg" alt="课件图片 第10页" loading="lazy" style="max-width:100%;margin:1em 0;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.1)">
+<blockquote>易错：路由器在转发分组时<span class="kp">最高只用到网际层</span>，没有使用运输层和应用层。所以路由器只看 IP 首部做转发决策，不关心 TCP/UDP 和应用协议。</blockquote>
+<h3 id="s17826348">数据在各层之间的传递过程 <span class="tag-key">重点</span></h3>
+<p><strong>封装过程（自上而下）</strong>：</p>
+<ol>
+<li>应用层：应用程序产生<span class="kp">数据</span></li>
+<li>运输层：加运输层首部 $H_5$（TCP 或 UDP 首部）→ <span class="kp">报文段</span></li>
+<li>网络层：加网络层首部 $H_4$（IP 首部）→ <span class="kp">IP 数据报（分组）</span></li>
+<li>数据链路层：加帧首部 $H_2$ 和帧尾部 $T_2$ → <span class="kp">帧</span></li>
+<li>物理层：转为<span class="kp">比特流</span>，通过传输媒体发送</li>
+</ol>
+<p><strong>解封过程（自下而上）</strong>：接收端各层逐层剥去首部，最终将数据交付给应用进程。</p>
+<img src="../../_images/page6_img1.jpeg" alt="课件图片 第6页" loading="lazy" style="max-width:100%;margin:1em 0;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.1)">
+<h2 id="s21947200">1.3 互联网的核心技术</h2>
+
+<h3 id="s46324210">分组交换技术 <span class="tag-must">必考</span></h3>
+<p><strong>三种交换方式对比：</strong></p>
+<table>
+<tr><th>方式</th><th>特点</th><th>优点</th><th>缺点</th></tr>
+<tr><td>电路交换</td><td>建立连接 → 通信 → 释放连接，通信期间始终占用端到端资源</td><td>传输时延小，有序</td><td>信道利用率低，建立连接时间长</td></tr>
+<tr><td>报文交换</td><td>整个报文存储转发</td><td>不需要建立连接</td><td>时延大，对缓存要求高</td></tr>
+<tr><td><span class="kp">分组交换</span></td><td>报文分成短分组，逐段链路存储转发</td><td>高效、灵活、迅速、可靠</td><td>额外开销（首部）、可能失序</td></tr>
+</table>
+<p><strong>互联网采用</strong>：<span class="kp">存储转发的分组交换技术</span>、<span class="kp">三层 ISP 结构</span>。</p>
+<blockquote>易错：分组交换的时延比电路交换大（因为要排队等），但信道利用率远高于电路交换。选择题常考这个权衡。</blockquote>
+<h3 id="s91409431">ISP 的三层结构 <span class="tag-freq">高频</span></h3>
+<p>互联网采用三层 ISP（Internet Service Provider）结构：</p>
+<ul>
+<li><span class="kp">第一层 ISP</span>——国际性/全国性主干网（如 AT&amp;T、中国电信骨干网）</li>
+<li><span class="kp">第二层 ISP</span>——区域性 ISP，向第一层 ISP 付费接入</li>
+<li><span class="kp">第三层 ISP</span>——本地 ISP，向第二层 ISP 付费接入，直接面向用户</li>
+</ul>
+<span class="tag-freq">高频</span>
+
+
+
+</body>
+</html>

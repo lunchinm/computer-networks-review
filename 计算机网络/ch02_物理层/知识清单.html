@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>第2章 物理层 · 计算机网络知识清单</title>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\(', '\)']],
+    displayMath: [['$$', '$$'], ['\[', '\]']]
+  }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"></script>
+<style>
+/* === ExamPass Shared Styles === */
+/* Paper-like warm background, clean typography, responsive */
+
+:root {
+  --paper: #fdf6e3;
+  --paper-dark: #f5ecd7;
+  --ink: #2c2c2c;
+  --ink-light: #555;
+  --accent: #2563eb;
+  --accent-hover: #1d4ed8;
+  --divider: #d6c8a8;
+  --card-bg: #fef9ef;
+  --card-border: #e8dcc8;
+  --correct: #22c55e;
+  --correct-bg: #f0fdf4;
+  --wrong: #ef4444;
+  --wrong-bg: #fef2f2;
+  --tag-bg: #fef3c7;
+  --tag-text: #92400e;
+  --radius: 6px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  font-family: "Microsoft YaHei", "Noto Sans SC", "SimSun", sans-serif;
+  font-size: 12pt; line-height: 1.75; color: var(--ink);
+  max-width: 860px; margin: auto; padding: 24px 20px 60px;
+  background: var(--paper);
+}
+
+@media print {
+  body { font-size: 10.5pt; background: #fff; }
+  .no-print { display: none !important; }
+  h1, h2, h3 { page-break-after: avoid; }
+}
+
+/* ── Header ── */
+#exampass-header {
+  display: flex; justify-content: space-between; align-items: baseline;
+  padding: 6px 0; margin-bottom: 0;
+}
+.header-brand { font-size: 1.2em; font-weight: 700; color: #1a1a2e; letter-spacing: 0.3px; }
+.header-url  { font-size: 0.78em; color: #999; }
+.header-divider { border: none; border-top: 2px solid var(--divider); margin: 4px 0 20px 0; }
+
+/* ── Typography ── */
+h1 { font-size: 1.55em; text-align: center; border-bottom: 2px solid var(--divider); padding-bottom: 8px; margin-top: 0; }
+h2 { font-size: 1.25em; border-bottom: 1px solid var(--divider); padding-bottom: 4px; margin-top: 28px; }
+h3 { font-size: 1.08em; margin-top: 20px; color: var(--ink); }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ── Tables ── */
+table { border-collapse: collapse; width: 100%; margin: 10px 0; font-size: 0.95em; }
+td, th { border: 1px solid var(--card-border); padding: 5px 9px; text-align: left; }
+th { background: var(--paper-dark); font-weight: 700; }
+
+/* ── Knowledge point vs explanation ── */
+.kp { font-weight: 700; color: var(--ink); }           /* key point: bold dark */
+.exp { font-weight: 400; color: var(--ink-light); }    /* explanation: lighter */
+.exp em, .exp strong { color: var(--ink); }             /* emphasis inside explanation */
+
+/* ── Block elements ── */
+blockquote {
+  border-left: 3px solid #c0392b; background: #fef9ef;
+  padding: 6px 14px; margin: 10px 0; font-size: 0.95em;
+}
+code { background: #f0ede0; padding: 2px 5px; border-radius: 3px; font-size: 0.92em; }
+pre { background: #f0ede0; padding: 10px; border-radius: var(--radius); overflow-x: auto; }
+
+/* ── TOC ── */
+div.toc {
+  background: var(--card-bg); padding: 14px 18px;
+  border: 1px solid var(--card-border); border-radius: var(--radius); margin-bottom: 22px;
+}
+div.toc ul { padding-left: 18px; }
+div.toc li { margin: 3px 0; font-size: 0.95em; }
+
+/* ── Priority tags ── */
+.tag-must   { background: #fee2e2; color: #991b1b; padding: 1px 6px; border-radius: 3px; font-size: 0.82em; font-weight: 600; }
+.tag-key    { background: #fef3c7; color: #92400e; padding: 1px 6px; border-radius: 3px; font-size: 0.82em; font-weight: 600; }
+.tag-freq   { background: #dbeafe; color: #1e40af; padding: 1px 6px; border-radius: 3px; font-size: 0.82em; font-weight: 600; }
+.tag-info   { background: #f0fdf4; color: #166534; padding: 1px 6px; border-radius: 3px; font-size: 0.82em; font-weight: 600; }
+
+
+</style>
+</head>
+<body>
+
+<header id="exampass-header">
+  <div class="header-left"><span class="header-brand">ExamPass Assistant</span></div>
+  <div class="header-right"><span class="header-url">github.com/WUBING2023/ExamPass-Assistant</span></div>
+</header>
+<hr class="header-divider">
+
+<h1>第2章 物理层 · 计算机网络知识清单</h1>
+<div class="toc">
+<h2>目录</h2>
+<ul>
+<li><a href="#s81086604">2.1 物理层基本概念</a></li>
+  <li><a href="#s30286139">物理层的主要任务 重点</a></li>
+<li><a href="#s42985685">2.2 数据通信基础</a></li>
+  <li><a href="#s70130205">数据通信系统模型 重点</a></li>
+  <li><a href="#s39802556">信道容量：奈氏准则 必考</a></li>
+  <li><a href="#s50592599">信噪比与香农公式 必考</a></li>
+<li><a href="#s47951284">2.3 物理层下的传输媒体</a></li>
+  <li><a href="#s46115381">导引型传输媒体 高频</a></li>
+  <li><a href="#s28277616">非导引型传输媒体 了解</a></li>
+<li><a href="#s24351048">2.4 信道复用技术</a></li>
+  <li><a href="#s25902783">频分复用 FDM 必考</a></li>
+  <li><a href="#s33962304">时分复用 TDM 必考</a></li>
+  <li><a href="#s33726540">码分复用 CDM/CDMA 必考</a></li>
+  <li><a href="#s44966824">复用技术对比 重点</a></li>
+</ul>
+</div>
+<h2 id="s81086604">2.1 物理层基本概念</h2>
+
+<p><strong>本章核心问题</strong>：<span class="kp">如何将比特流通过物理介质从发送端可靠地传送到接收端？</span></p>
+<h3 id="s30286139">物理层的主要任务 <span class="tag-key">重点</span></h3>
+<p><span class="kp">物理层</span><span class="exp">——负责在连接各种计算机的传输媒体上传输数据比特流。它不是指具体的传输媒体，而是确定与传输媒体接口有关的一些特性。</span></p>
+<p>物理层的四个特性：</p>
+<ul>
+<li><span class="kp">机械特性</span>——接口的形状、尺寸、引脚数等</li>
+<li><span class="kp">电气特性</span>——接口电缆上各线上电压范围</li>
+<li><span class="kp">功能特性</span>——某一电平的电压表示何种意义</li>
+<li><span class="kp">规程特性</span>——不同功能的各种可能事件的出现顺序</li>
+</ul>
+<blockquote>易错：「物理层就是传输媒体」是错误说法。物理层定义了与传输媒体的接口，但传输媒体本身（双绞线、光纤等）不是物理层。</blockquote>
+<img src="../../_images/page15_img1.jpeg" alt="课件图片 第15页" loading="lazy" style="max-width:100%;margin:1em 0;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.1)">
+<h2 id="s42985685">2.2 数据通信基础</h2>
+
+<h3 id="s70130205">数据通信系统模型 <span class="tag-key">重点</span></h3>
+<p>三大部分：<span class="kp">源系统</span>（发送端）、<span class="kp">传输系统</span>（传输网络）和<span class="kp">目的系统</span>（接收端）。</p>
+<ul>
+<li><span class="kp">源点</span>——产生数据的设备</li>
+<li><span class="kp">发送器</span>——将数据编码为信号（如调制解调器）</li>
+<li><span class="kp">接收器</span>——将信号解码还原为数据</li>
+<li><span class="kp">终点</span>——接收数据的设备</li>
+</ul>
+<img src="../../_images/page16_img1.jpeg" alt="课件图片 第16页" loading="lazy" style="max-width:100%;margin:1em 0;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.1)">
+<h3 id="s39802556">信道容量：奈氏准则 <span class="tag-must">必考</span></h3>
+<p><strong>是什么？</strong>在带宽为 $W$ Hz 的低通信道中，若不考虑噪声影响，则<span class="kp">码元传输的最高速率是 $2W$ 码元/秒</span>。</p>
+<p>$$C_{\\text{max}} = 2W \\quad (\\text{Baud})$$</p>
+<p><strong>为什么？</strong>具体信道能通过的频率范围是有限的，信号中的高频分量往往不能通过信道。如果传输速率超过上限，会出现<span class="kp">码间串扰</span>——接收端收到的信号波形失去码元之间的清晰界限。</p>
+<p><strong>怎么用？</strong>奈氏准则给出的是<span class="kp">码元传输速率</span>的上限，而不是信息传输速率的上限。通过提高每个码元携带的比特数，可以提高信息传输速率。</p>
+<blockquote>易错：奈氏准则约束的是 Baud（码元/秒），不是 bps（比特/秒）。在无噪声条件下，可以通过多进制调制在 $2W$ Baud 约束下传输更高 $2W \\cdot \\log_2 M$ bps。</blockquote>
+<h3 id="s50592599">信噪比与香农公式 <span class="tag-must">必考</span></h3>
+<p><strong>信噪比定义</strong>：信号的平均功率和噪声的平均功率之比 $S/N$，用分贝表示：</p>
+<p>$$\\text{信噪比(dB)} = 10 \\log_{10}\\frac{S}{N}$$</p>
+<p>例如：$S/N=10$ 时为 10dB，$S/N=1000$ 时为 30dB。</p>
+<p><strong>香农公式</strong>：信道的极限信息传输速率 $C$ 为：</p>
+<p>$$C = W \\log_2(1 + \\frac{S}{N}) \\quad (\\text{bit/s})$$</p>
+<p><strong>含义</strong>：增大带宽 $W$ 或增大信噪比 $S/N$ 都可以提高信道容量。只要信息传输速率低于极限，就一定能找到某种方法实现无差错传输。</p>
+<blockquote>易错：奈氏准则给出的是无噪声假设下的码元速率上限，香农公式给出的是有噪声下信息速率的上限。两者不能混用！</blockquote>
+<img src="../../_images/page17_img1.jpeg" alt="课件图片 第17页" loading="lazy" style="max-width:100%;margin:1em 0;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.1)">
+<h2 id="s47951284">2.3 物理层下的传输媒体</h2>
+
+<h3 id="s46115381">导引型传输媒体 <span class="tag-freq">高频</span></h3>
+<table>
+<tr><th>媒体类型</th><th>特点</th><th>典型速率</th></tr>
+<tr><td><span class="kp">双绞线</span></td><td>两根绝缘铜线绞合，绞合度越高传输率越高。UTP（无屏蔽）/STP（屏蔽）</td><td>100Mbps ~ 10Gbps</td></tr>
+<tr><td><span class="kp">同轴电缆</span></td><td>内导体+绝缘层+外屏蔽层+保护套，抗干扰特性好</td><td>10Mbps</td></tr>
+<tr><td><span class="kp">光纤</span></td><td>通过光脉冲通信，传输带宽极大，误码率最低，不受电磁干扰</td><td>数十 Gbps ~ Tbps</td></tr>
+</table>
+<p><span class="kp">光纤通信原理</span>：发送端光源（LED/激光器）产生光脉冲；接收端光检测器（光电二极管）还原电信号。光纤通信的误码率最低。</p>
+<img src="../../_images/page20_img1.jpeg" alt="课件图片 第20页" loading="lazy" style="max-width:100%;margin:1em 0;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.1)">
+<h3 id="s28277616">非导引型传输媒体 <span class="tag-info">了解</span></h3>
+<p>指自由空间中的无线传输：无线电波、微波、红外线、激光等。</p>
+<span class="tag-info">了解</span>
+<h2 id="s24351048">2.4 信道复用技术</h2>
+
+<h3 id="s25902783">频分复用 FDM <span class="tag-must">必考</span></h3>
+<p><span class="kp">FDM (Frequency Division Multiplexing)</span><span class="exp">——将整个带宽分为多份，用户在分配到一定频带后，在通信过程中自始至终都占用这个频带。所有用户在同样的时间占用不同的频带。</span></p>
+<img src="../../_images/page25_img1.jpeg" alt="课件图片 第25页" loading="lazy" style="max-width:100%;margin:1em 0;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.1)">
+<h3 id="s33962304">时分复用 TDM <span class="tag-must">必考</span></h3>
+<p><span class="kp">TDM (Time Division Multiplexing)</span><span class="exp">——将时间划分为等长的 TDM 帧，每个用户在每帧中占用固定序号的时隙。所有用户在不同的时间占用同样的频带。</span></p>
+<p><strong>缺点</strong>：信道利用率低——某用户无数据传输时，其分配的时隙被浪费。</p>
+<p><span class="kp">统计时分复用 STDM</span>——改进版，按需分配时隙，提高信道利用率。</p>
+<img src="../../_images/page26_img1.jpeg" alt="课件图片 第26页" loading="lazy" style="max-width:100%;margin:1em 0;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.1)">
+<h3 id="s33726540">码分复用 CDM/CDMA <span class="tag-must">必考</span></h3>
+<p><span class="kp">CDM (Code Division Multiplexing)</span><span class="exp">——各用户使用特殊挑选的不同码型，在同样的时间使用同样的频带通信。</span></p>
+<p><strong>CDMA 工作原理</strong>：</p>
+<ul>
+<li>将每比特时间划分为 $m$ 个短的间隔——<span class="kp">码片 (chip)</span></li>
+<li>每个站分配唯一的 $m$ bit <span class="kp">码片序列</span></li>
+<li>发送 1：发码片序列本身；发送 0：发码片序列的二进制反码</li>
+<li>码片序列正交：$S \\cdot T = \\frac{1}{m}\\sum_{i=1}^{m} S_i T_i = 0$</li>
+<li>恢复：收到信号与目标站码片序列做内积，归一化为 1 则发的是 1，-1 则发的是 0</li>
+</ul>
+<img src="../../_images/page28_img1.jpeg" alt="课件图片 第28页" loading="lazy" style="max-width:100%;margin:1em 0;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.1)">
+<blockquote>易错：CDMA 中每个站的码片序列是互相<span class="kp">正交</span>的。收到信号后，用哪个站的码片做内积就能恢复哪个站的数据。这不是简单的频谱扩频，而是基于正交码的复用。</blockquote>
+<h3 id="s44966824">复用技术对比 <span class="tag-key">重点</span></h3>
+<table>
+<tr><th>技术</th><th>共享方式</th><th>关键特点</th></tr>
+<tr><td>FDM</td><td>频带分割</td><td>同时间、不同频率</td></tr>
+<tr><td>TDM</td><td>时间分割</td><td>同频率、不同时间</td></tr>
+<tr><td>STDM</td><td>按需时隙</td><td>提高信道利用率</td></tr>
+<tr><td>WDM</td><td>波长（光的FDM）</td><td>光纤中不同波长复用</td></tr>
+<tr><td>CDM/CDMA</td><td>码型区分</td><td>同时间、同频率、不同码型</td></tr>
+</table>
+
+
+
+</body>
+</html>

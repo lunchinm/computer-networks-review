@@ -1,0 +1,17 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.codebuddy/
+.vscode/
+.idea/
+
+# Temp files
+*.tmp
+*.log

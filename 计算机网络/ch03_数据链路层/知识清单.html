@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>第3章 数据链路层 · 计算机网络知识清单</title>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\(', '\)']],
+    displayMath: [['$$', '$$'], ['\[', '\]']]
+  }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"></script>
+<style>
+/* === ExamPass Shared Styles === */
+/* Paper-like warm background, clean typography, responsive */
+
+:root {
+  --paper: #fdf6e3;
+  --paper-dark: #f5ecd7;
+  --ink: #2c2c2c;
+  --ink-light: #555;
+  --accent: #2563eb;
+  --accent-hover: #1d4ed8;
+  --divider: #d6c8a8;
+  --card-bg: #fef9ef;
+  --card-border: #e8dcc8;
+  --correct: #22c55e;
+  --correct-bg: #f0fdf4;
+  --wrong: #ef4444;
+  --wrong-bg: #fef2f2;
+  --tag-bg: #fef3c7;
+  --tag-text: #92400e;
+  --radius: 6px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  font-family: "Microsoft YaHei", "Noto Sans SC", "SimSun", sans-serif;
+  font-size: 12pt; line-height: 1.75; color: var(--ink);
+  max-width: 860px; margin: auto; padding: 24px 20px 60px;
+  background: var(--paper);
+}
+
+@media print {
+  body { font-size: 10.5pt; background: #fff; }
+  .no-print { display: none !important; }
+  h1, h2, h3 { page-break-after: avoid; }
+}
+
+/* ── Header ── */
+#exampass-header {
+  display: flex; justify-content: space-between; align-items: baseline;
+  padding: 6px 0; margin-bottom: 0;
+}
+.header-brand { font-size: 1.2em; font-weight: 700; color: #1a1a2e; letter-spacing: 0.3px; }
+.header-url  { font-size: 0.78em; color: #999; }
+.header-divider { border: none; border-top: 2px solid var(--divider); margin: 4px 0 20px 0; }
+
+/* ── Typography ── */
+h1 { font-size: 1.55em; text-align: center; border-bottom: 2px solid var(--divider); padding-bottom: 8px; margin-top: 0; }
+h2 { font-size: 1.25em; border-bottom: 1px solid var(--divider); padding-bottom: 4px; margin-top: 28px; }
+h3 { font-size: 1.08em; margin-top: 20px; color: var(--ink); }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ── Tables ── */
+table { border-collapse: collapse; width: 100%; margin: 10px 0; font-size: 0.95em; }
+td, th { border: 1px solid var(--card-border); padding: 5px 9px; text-align: left; }
+th { background: var(--paper-dark); font-weight: 700; }
+
+/* ── Knowledge point vs explanation ── */
+.kp { font-weight: 700; color: var(--ink); }           /* key point: bold dark */
+.exp { font-weight: 400; color: var(--ink-light); }    /* explanation: lighter */
+.exp em, .exp strong { color: var(--ink); }             /* emphasis inside explanation */
+
+/* ── Block elements ── */
+blockquote {
+  border-left: 3px solid #c0392b; background: #fef9ef;
+  padding: 6px 14px; margin: 10px 0; font-size: 0.95em;
+}
+code { background: #f0ede0; padding: 2px 5px; border-radius: 3px; font-size: 0.92em; }
+pre { background: #f0ede0; padding: 10px; border-radius: var(--radius); overflow-x: auto; }
+
+/* ── TOC ── */
+div.toc {
+  background: var(--card-bg); padding: 14px 18px;
+  border: 1px solid var(--card-border); border-radius: var(--radius); margin-bottom: 22px;
+}
+div.toc ul { padding-left: 18px; }
+div.toc li { margin: 3px 0; font-size: 0.95em; }
+
+/* ── Priority tags ── */
+.tag-must   { background: #fee2e2; color: #991b1b; padding: 1px 6px; border-radius: 3px; font-size: 0.82em; font-weight: 600; }
+.tag-key    { background: #fef3c7; color: #92400e; padding: 1px 6px; border-radius: 3px; font-size: 0.82em; font-weight: 600; }
+.tag-freq   { background: #dbeafe; color: #1e40af; padding: 1px 6px; border-radius: 3px; font-size: 0.82em; font-weight: 600; }
+.tag-info   { background: #f0fdf4; color: #166534; padding: 1px 6px; border-radius: 3px; font-size: 0.82em; font-weight: 600; }
+
+
+</style>
+</head>
+<body>
+
+<header id="exampass-header">
+  <div class="header-left"><span class="header-brand">ExamPass Assistant</span></div>
+  <div class="header-right"><span class="header-url">github.com/WUBING2023/ExamPass-Assistant</span></div>
+</header>
+<hr class="header-divider">
+
+<h1>第3章 数据链路层 · 计算机网络知识清单</h1>
+<div class="toc">
+<h2>目录</h2>
+<ul>
+<li><a href="#s54163022">3.1 数据链路层概述</a></li>
+  <li><a href="#s60367547">数据链路层的基本功能 重点</a></li>
+  <li><a href="#s87721129">链路层信道类型 高频</a></li>
+<li><a href="#s67654027">3.2 三个基本问题</a></li>
+  <li><a href="#s22881825">问题一：封装成帧 必考</a></li>
+  <li><a href="#s38300987">问题二：透明传输 必考</a></li>
+  <li><a href="#s40162377">问题三：差错检测 必考</a></li>
+<li><a href="#s71145643">3.3 使用广播信道的数据链路层</a></li>
+  <li><a href="#s25320384">CSMA/CD 协议 必考</a></li>
+  <li><a href="#s62198049">CSMA/CD 工作流程 重点</a></li>
+  <li><a href="#s30804497">争用期与最短帧长 必考</a></li>
+  <li><a href="#s66277474">以太网的 MAC 层 重点</a></li>
+  <li><a href="#s81463255">以太网交换机与 VLAN 重点</a></li>
+</ul>
+</div>
+<h2 id="s54163022">3.1 数据链路层概述</h2>
+
+<p><strong>本章核心问题</strong>：<span class="kp">如何在一段链路上实现可靠、透明的帧传输？</span></p>
+<h3 id="s60367547">数据链路层的基本功能 <span class="tag-key">重点</span></h3>
+<p><span class="kp">数据链路层</span><span class="exp">——在物理层提供的比特流服务基础上，将网络层的数据报封装成帧，并在一段链路上进行可靠传输。</span></p>
+<p>主要功能：封装成帧、透明传输、差错检测。</p>
+<img src="../../_images/page32_img1.jpeg" alt="课件图片 第32页" loading="lazy" style="max-width:100%;margin:1em 0;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.1)">
+<h3 id="s87721129">链路层信道类型 <span class="tag-freq">高频</span></h3>
+<ul>
+<li><span class="kp">点对点信道</span>——一对一的通信方式。使用 PPP 协议。</li>
+<li><span class="kp">广播信道</span>——一对多的通信方式。需要共享信道协议，如 CSMA/CD。</li>
+</ul>
+<h2 id="s67654027">3.2 三个基本问题</h2>
+
+<h3 id="s22881825">问题一：封装成帧 <span class="tag-must">必考</span></h3>
+<p><strong>是什么？</strong>在一段数据的前后分别添加<span class="kp">首部</span>和<span class="kp">尾部</span>，构成一个帧。首部和尾部的作用是<span class="kp">帧定界</span>。</p>
+<p>帧结构：<span class="kp">帧首部 + 数据部分 + 帧尾部</span></p>
+<p>帧定界符：SOH (Start Of Header) 标志帧开始，EOT (End Of Transmission) 标志帧结束。</p>
+<img src="../../_images/page33_img1.jpeg" alt="课件图片 第33页" loading="lazy" style="max-width:100%;margin:1em 0;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.1)">
+<h3 id="s38300987">问题二：透明传输 <span class="tag-must">必考</span></h3>
+<p><strong>问题</strong>：如果数据中的某个字节恰好与帧定界符（如 SOH 或 EOT）相同，接收端会错误地判断帧的边界。</p>
+<p><strong>解决</strong>：<span class="kp">字节填充（字符填充）</span>——在数据部分中出现的控制字符前面插入转义字符 ESC。</p>
+<ul>
+<li>数据中出现 SOH → 插入 ESC + SOH</li>
+<li>数据中出现 EOT → 插入 ESC + EOT</li>
+<li>数据中出现 ESC → 插入 ESC + ESC</li>
+</ul>
+<p>接收端遇到 ESC 就从帧中删除它，将后面的字符视为数据。</p>
+<img src="../../_images/page34_img1.jpeg" alt="课件图片 第34页" loading="lazy" style="max-width:100%;margin:1em 0;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.1)">
+<blockquote>易错：「透明」的意思是对上层的数据没有限制——上层可以传送任意二进制数据，链路层都能正确传输，不会因为某些字节碰巧等于控制字符而出错。</blockquote>
+<h3 id="s40162377">问题三：差错检测 <span class="tag-must">必考</span></h3>
+<p><strong>是什么？</strong>检测帧在传输过程中是否出现了比特差错。</p>
+<p><span class="kp">CRC（循环冗余检验）</span>——最常用的检错方法。</p>
+<p><strong>原理</strong>：发送端将数据比特序列除以一个生成多项式 $P(x)$，余数作为<span class="kp">帧检验序列 FCS</span> 附加在数据后面。接收端用同样的 $P(x)$ 去除，余数为 0 则无差错。</p>
+<p><strong>CRC 只能检测比特差错</strong>，不能纠正，也不能保证可靠传输（不处理帧丢失/重复/失序）。</p>
+<blockquote>易错：CRC 检错无比特差错 ≠ 可靠传输。可靠传输还需要处理帧丢失、帧重复、帧失序等问题。</blockquote>
+<h2 id="s71145643">3.3 使用广播信道的数据链路层</h2>
+
+<h3 id="s25320384">CSMA/CD 协议 <span class="tag-must">必考</span></h3>
+<p><span class="kp">CSMA/CD (载波监听多点接入/碰撞检测)</span><span class="exp">——以太网使用的共享信道协议，解决在广播信道上如何协调多个站点发送数据的问题。</span></p>
+<ul>
+<li><strong>载波监听</strong>：发送前先<span class="kp">监听</span>信道是否空闲</li>
+<li><strong>碰撞检测</strong>：边发送边监听，检测是否发生碰撞</li>
+<li><strong>多点接入</strong>：多个站点共享同一信道</li>
+</ul>
+<img src="../../_images/page46_img1.jpeg" alt="课件图片 第46页" loading="lazy" style="max-width:100%;margin:1em 0;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.1)">
+<h3 id="s62198049">CSMA/CD 工作流程 <span class="tag-key">重点</span></h3>
+<ol>
+<li>准备发送：适配器从网络层获得分组，封装成帧，放入缓存。</li>
+<li>检测信道：若<span class="kp">信道忙</span>则等待，若<span class="kp">空闲</span>则等待一个最小帧间间隔后发送。</li>
+<li>边发送边监听：如果检测到<span class="kp">碰撞</span>，立即停止发送，发送<span class="kp">人为干扰信号</span>（Jam Signal）。</li>
+<li>指数退避：碰撞后等待一个随机时间重传。第 $k$ 次重传（$k \\leqslant 10$）从 $[0, 2^k-1]$ 中随机选取退避时间（每个时间槽为 $2\\tau$，$\\tau$ 为单程端到端传播时延）。</li>
+<li>$k=16$ 次仍失败则丢弃该帧，向上层报告错误。</li>
+</ol>
+<h3 id="s30804497">争用期与最短帧长 <span class="tag-must">必考</span></h3>
+<p><span class="kp">争用期（碰撞窗口）</span>：以太网的端到端往返时间 $2\\tau$。如果在这个时间内没有检测到碰撞，则这次发送就不会再发生碰撞。</p>
+<p><span class="kp">最短有效帧长</span> = 争用期 × 数据率。10Mbps 以太网的最短帧长为 512 bit = 64 字节。</p>
+<p>如果帧太短（< 64 字节），可能在碰撞被检测到之前已经发完，导致发送方不知道发生了碰撞。因此<span class="kp">最短帧长必须足够长</span>。</p>
+<blockquote>易错：争用期 = 2τ（往返时间），不是 τ（单程）。最短帧长 = 争用期 × 数据率，不是 τ × 数据率。</blockquote>
+<h3 id="s66277474">以太网的 MAC 层 <span class="tag-key">重点</span></h3>
+<p><span class="kp">MAC 地址（硬件地址/物理地址）</span>——48 位（6 字节），固化在网卡的 ROM 中。全球唯一。</p>
+<p>MAC 帧格式（以太网 V2）：</p>
+<table>
+<tr><th>字段</th><th>字节数</th><th>说明</th></tr>
+<tr><td>前同步码</td><td>8</td><td>7字节前同步码 + 1字节帧开始定界符</td></tr>
+<tr><td>目的 MAC</td><td>6</td><td>接收方的 MAC 地址</td></tr>
+<tr><td>源 MAC</td><td>6</td><td>发送方的 MAC 地址</td></tr>
+<tr><td>类型</td><td>2</td><td>上层协议类型（如 0x0800 为 IPv4）</td></tr>
+<tr><td>数据</td><td>46~1500</td><td>IP 数据报</td></tr>
+<tr><td>FCS</td><td>4</td><td>帧检验序列（CRC）</td></tr>
+</table>
+<p>有效帧长：64~1518 字节（不含前同步码）。</p>
+<h3 id="s81463255">以太网交换机与 VLAN <span class="tag-key">重点</span></h3>
+<p><span class="kp">交换机</span>——工作在数据链路层，根据 MAC 地址转发帧。通过<span class="kp">自学习</span>建立转发表（MAC 地址 → 端口映射）。</p>
+<p><span class="kp">VLAN（虚拟局域网）</span>——在物理网络上划分逻辑工作组，每个 VLAN 是独立的广播域。IEEE 802.1Q 标准定义了 VLAN 标签格式。</p>
+<p>VLAN 优点：限制广播风暴、提高安全性、灵活管理。</p>
+<img src="../../_images/page80_img1.jpeg" alt="课件图片 第80页" loading="lazy" style="max-width:100%;margin:1em 0;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.1)">
+
+
+
+</body>
+</html>

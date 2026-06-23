@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>第4章 网络层 · 计算机网络知识清单</title>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\(', '\)']],
+    displayMath: [['$$', '$$'], ['\[', '\]']]
+  }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"></script>
+<style>
+/* === ExamPass Shared Styles === */
+/* Paper-like warm background, clean typography, responsive */
+
+:root {
+  --paper: #fdf6e3;
+  --paper-dark: #f5ecd7;
+  --ink: #2c2c2c;
+  --ink-light: #555;
+  --accent: #2563eb;
+  --accent-hover: #1d4ed8;
+  --divider: #d6c8a8;
+  --card-bg: #fef9ef;
+  --card-border: #e8dcc8;
+  --correct: #22c55e;
+  --correct-bg: #f0fdf4;
+  --wrong: #ef4444;
+  --wrong-bg: #fef2f2;
+  --tag-bg: #fef3c7;
+  --tag-text: #92400e;
+  --radius: 6px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  font-family: "Microsoft YaHei", "Noto Sans SC", "SimSun", sans-serif;
+  font-size: 12pt; line-height: 1.75; color: var(--ink);
+  max-width: 860px; margin: auto; padding: 24px 20px 60px;
+  background: var(--paper);
+}
+
+@media print {
+  body { font-size: 10.5pt; background: #fff; }
+  .no-print { display: none !important; }
+  h1, h2, h3 { page-break-after: avoid; }
+}
+
+/* ── Header ── */
+#exampass-header {
+  display: flex; justify-content: space-between; align-items: baseline;
+  padding: 6px 0; margin-bottom: 0;
+}
+.header-brand { font-size: 1.2em; font-weight: 700; color: #1a1a2e; letter-spacing: 0.3px; }
+.header-url  { font-size: 0.78em; color: #999; }
+.header-divider { border: none; border-top: 2px solid var(--divider); margin: 4px 0 20px 0; }
+
+/* ── Typography ── */
+h1 { font-size: 1.55em; text-align: center; border-bottom: 2px solid var(--divider); padding-bottom: 8px; margin-top: 0; }
+h2 { font-size: 1.25em; border-bottom: 1px solid var(--divider); padding-bottom: 4px; margin-top: 28px; }
+h3 { font-size: 1.08em; margin-top: 20px; color: var(--ink); }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ── Tables ── */
+table { border-collapse: collapse; width: 100%; margin: 10px 0; font-size: 0.95em; }
+td, th { border: 1px solid var(--card-border); padding: 5px 9px; text-align: left; }
+th { background: var(--paper-dark); font-weight: 700; }
+
+/* ── Knowledge point vs explanation ── */
+.kp { font-weight: 700; color: var(--ink); }           /* key point: bold dark */
+.exp { font-weight: 400; color: var(--ink-light); }    /* explanation: lighter */
+.exp em, .exp strong { color: var(--ink); }             /* emphasis inside explanation */
+
+/* ── Block elements ── */
+blockquote {
+  border-left: 3px solid #c0392b; background: #fef9ef;
+  padding: 6px 14px; margin: 10px 0; font-size: 0.95em;
+}
+code { background: #f0ede0; padding: 2px 5px; border-radius: 3px; font-size: 0.92em; }
+pre { background: #f0ede0; padding: 10px; border-radius: var(--radius); overflow-x: auto; }
+
+/* ── TOC ── */
+div.toc {
+  background: var(--card-bg); padding: 14px 18px;
+  border: 1px solid var(--card-border); border-radius: var(--radius); margin-bottom: 22px;
+}
+div.toc ul { padding-left: 18px; }
+div.toc li { margin: 3px 0; font-size: 0.95em; }
+
+/* ── Priority tags ── */
+.tag-must   { background: #fee2e2; color: #991b1b; padding: 1px 6px; border-radius: 3px; font-size: 0.82em; font-weight: 600; }
+.tag-key    { background: #fef3c7; color: #92400e; padding: 1px 6px; border-radius: 3px; font-size: 0.82em; font-weight: 600; }
+.tag-freq   { background: #dbeafe; color: #1e40af; padding: 1px 6px; border-radius: 3px; font-size: 0.82em; font-weight: 600; }
+.tag-info   { background: #f0fdf4; color: #166534; padding: 1px 6px; border-radius: 3px; font-size: 0.82em; font-weight: 600; }
+
+
+</style>
+</head>
+<body>
+
+<header id="exampass-header">
+  <div class="header-left"><span class="header-brand">ExamPass Assistant</span></div>
+  <div class="header-right"><span class="header-url">github.com/WUBING2023/ExamPass-Assistant</span></div>
+</header>
+<hr class="header-divider">
+
+<h1>第4章 网络层 · 计算机网络知识清单</h1>
+<div class="toc">
+<h2>目录</h2>
+<ul>
+<li><a href="#s17634657">4.1 网络层概述</a></li>
+  <li><a href="#s35173142">网络层提供的两种服务 必考</a></li>
+<li><a href="#s49398786">4.2 IP 协议</a></li>
+  <li><a href="#s23193905">IP 地址及其分类 必考</a></li>
+  <li><a href="#s55367167">子网划分与子网掩码 必考</a></li>
+  <li><a href="#s15642099">CIDR（无分类编址）必考</a></li>
+  <li><a href="#s46405352">IP 数据报格式 重点</a></li>
+  <li><a href="#s29042248">IP 分片与重组 必考</a></li>
+<li><a href="#s44462306">4.3 划分子网和构造超网</a></li>
+  <li><a href="#s46572814">子网划分方法 必考</a></li>
+<li><a href="#s16058958">4.4 路由协议</a></li>
+  <li><a href="#s12274635">路由协议分类 必考</a></li>
+  <li><a href="#s57958058">RIP 协议 重点</a></li>
+  <li><a href="#s48660036">OSPF 协议 重点</a></li>
+<li><a href="#s27792471">4.5 ARP 与 ICMP</a></li>
+  <li><a href="#s26638075">ARP 地址解析协议 必考</a></li>
+  <li><a href="#s16250885">ICMP 互联网控制报文协议 重点</a></li>
+<li><a href="#s75020109">4.6 IPv6</a></li>
+  <li><a href="#s95817359">IPv6 特点 重点</a></li>
+</ul>
+</div>
+<h2 id="s17634657">4.1 网络层概述</h2>
+
+<p><strong>本章核心问题</strong>：<span class="kp">如何将分组从源主机通过多个网络（路由器）传送到目的主机？</span></p>
+<h3 id="s35173142">网络层提供的两种服务 <span class="tag-must">必考</span></h3>
+<p>在计算机网络领域，网络层应该向运输层提供怎样的服务曾引起长期争论。争论的实质是：<span class="kp">可靠交付应当由网络还是端系统负责？</span></p>
+<table>
+<tr><th>方式</th><th>特点</th><th>代表</th></tr>
+<tr><td><span class="kp">虚电路服务</span></td><td>面向连接，提供可靠交付，网络层保证</td><td>ATM、帧中继</td></tr>
+<tr><td><span class="kp">数据报服务</span></td><td>无连接，尽最大努力交付，端系统保证</td><td>Internet (IP)</td></tr>
+</table>
+<p><strong>Internet 采用数据报服务</strong>——IP 协议提供无连接的、尽最大努力交付的服务。可靠传输由端系统的 TCP 保证。</p>
+<img src="../../_images/page23_img1.jpeg" alt="课件图片 第23页" loading="lazy" style="max-width:100%;margin:1em 0;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.1)">
+<h2 id="s49398786">4.2 IP 协议</h2>
+
+<h3 id="s23193905">IP 地址及其分类 <span class="tag-must">必考</span></h3>
+<p><span class="kp">IP 地址</span>——32 位（IPv4），全球唯一标识符，由网络号和主机号组成。</p>
+<p><strong>分类的 IP 地址</strong>：</p>
+<table>
+<tr><th>类别</th><th>网络号位数</th><th>首字节范围</th><th>最大网络数</th><th>每网最大主机数</th></tr>
+<tr><td>A</td><td>8 (实际7)</td><td>1~126</td><td>126</td><td>16,777,214</td></tr>
+<tr><td>B</td><td>16 (实际14)</td><td>128~191</td><td>16,384</td><td>65,534</td></tr>
+<tr><td>C</td><td>24 (实际21)</td><td>192~223</td><td>2,097,152</td><td>254</td></tr>
+<tr><td>D</td><td colspan="3">224~239，多播地址</td></tr>
+<tr><td>E</td><td colspan="3">240~255，保留</td></tr>
+</table>
+<blockquote>易错：A类地址的网络号为 8 位，但第一位固定为 0，所以可用的网络号只有 7 位 = 126 个。127.x.x.x 是环回地址。</blockquote>
+<h3 id="s55367167">子网划分与子网掩码 <span class="tag-must">必考</span></h3>
+<p><strong>为什么要划分子网？</strong>IP 地址空间利用率低 + 路由表膨胀。划分子网可以将一个大的网络划分成若干较小的网络。</p>
+<p><span class="kp">子网掩码</span>——32 位，网络号和子网号对应的位为 1，主机号对应的位为 0。</p>
+<p>$$\\text{网络地址} = \\text{IP 地址} \\; \\& \\; \\text{子网掩码}$$</p>
+<p>例如：IP 141.14.72.24，子网掩码 255.255.192.0 → 网络地址 = 141.14.64.0</p>
+<blockquote>易错：子网掩码中的 1 必须连续（从最高位开始）。255.255.1.0 这样不连续的掩码在实际中很少使用。</blockquote>
+<h3 id="s15642099">CIDR（无分类编址）<span class="tag-must">必考</span></h3>
+<p><span class="kp">CIDR (Classless Inter-Domain Routing)</span><span class="exp">——消除传统 A、B、C 类地址界限，使用「网络前缀」来指定网络部分。</span></p>
+<p>记法：<span class="kp">IP地址/前缀长度</span>，如 192.168.1.0/24 表示前 24 位是网络前缀。</p>
+<p>CIDR 关键概念：</p>
+<ul>
+<li><span class="kp">地址块</span>——CIDR 将网络前缀相同的连续 IP 地址组成一个地址块</li>
+<li><span class="kp">路由聚合</span>——将多个子网聚合为一个超网，减少路由表条目</li>
+<li><span class="kp">最长前缀匹配</span>——路由器查表时选择与目的地址匹配的最长前缀</li>
+</ul>
+<img src="../../_images/page112_img1.jpeg" alt="课件图片 第112页" loading="lazy" style="max-width:100%;margin:1em 0;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.1)">
+<h3 id="s46405352">IP 数据报格式 <span class="tag-key">重点</span></h3>
+<p>IPv4 数据报首部：</p>
+<table>
+<tr><th>字段</th><th>位数</th><th>说明</th></tr>
+<tr><td>版本</td><td>4</td><td>IPv4 = 4</td></tr>
+<tr><td>首部长度</td><td>4</td><td>以 4 字节为单位，最小 5（20字节）</td></tr>
+<tr><td>区分服务</td><td>8</td><td>QoS 标记</td></tr>
+<tr><td>总长度</td><td>16</td><td>首部+数据，最大 65535 字节</td></tr>
+<tr><td>标识</td><td>16</td><td>分片重组标识</td></tr>
+<tr><td>标志</td><td>3</td><td>DF（不分片）/ MF（更多分片）</td></tr>
+<tr><td>片偏移</td><td>13</td><td>以 8 字节为单位</td></tr>
+<tr><td>TTL</td><td>8</td><td>跳数限制，每路由器减 1</td></tr>
+<tr><td>协议</td><td>8</td><td>上层协议：6=TCP, 17=UDP, 1=ICMP</td></tr>
+<tr><td>首部检验和</td><td>16</td><td>仅检验首部</td></tr>
+<tr><td>源/目的地址</td><td>各32</td><td>IPv4 地址</td></tr>
+</table>
+<h3 id="s29042248">IP 分片与重组 <span class="tag-must">必考</span></h3>
+<p><strong>为什么分片？</strong>不同网络的 MTU 可能不同，IP 数据报在转发时可能需要在路由器处分片。</p>
+<p><strong>关键字段</strong>：标识（同一数据报各分片相同）、标志（DF=1 禁止分片，MF=1 还有后续分片）、片偏移（本分片在原数据报中的相对位置，以 8 字节为单位）。</p>
+<blockquote>易错：片偏移以 8 字节为单位，所以分片的数据部分长度必须是 8 的倍数（最后一个分片除外）。</blockquote>
+<h2 id="s44462306">4.3 划分子网和构造超网</h2>
+
+<h3 id="s46572814">子网划分方法 <span class="tag-must">必考</span></h3>
+<p><strong>定长子网划分</strong>——所有子网使用相同的子网掩码。</p>
+<p><strong>变长子网划分 VLSM</strong>——不同子网可使用不同长度的子网掩码，更灵活高效。</p>
+<p>从主机号中借 $n$ 位作为子网号 → $2^n$ 个子网（减去全 0 和全 1）。</p>
+<h2 id="s16058958">4.4 路由协议</h2>
+
+<h3 id="s12274635">路由协议分类 <span class="tag-must">必考</span></h3>
+<table>
+<tr><th>类型</th><th>协议</th><th>算法</th><th>特点</th></tr>
+<tr><td>IGP 内部网关</td><td>RIP</td><td>距离向量</td><td>跳数最多 15，仅适用小型网络</td></tr>
+<tr><td>IGP 内部网关</td><td>OSPF</td><td>链路状态</td><td>Dijkstra 算法，收敛快，适用大型网络</td></tr>
+<tr><td>EGP 外部网关</td><td>BGP-4</td><td>路径向量</td><td>互联网域间路由标准</td></tr>
+</table>
+<h3 id="s57958058">RIP 协议 <span class="tag-key">重点</span></h3>
+<p><span class="kp">RIP (Routing Information Protocol)</span>——基于距离向量的分布式路由协议，以跳数为度量。</p>
+<ul>
+<li>每 30 秒与邻居交换路由表</li>
+<li>最大跳数 15（16 表示不可达）→ 仅适用小型网络</li>
+<li>好消息传播快，坏消息传播慢（慢收敛问题）</li>
+</ul>
+<h3 id="s48660036">OSPF 协议 <span class="tag-key">重点</span></h3>
+<p><span class="kp">OSPF (Open Shortest Path First)</span>——基于链路状态的内部网关协议。使用 Dijkstra 最短路径算法。</p>
+<ul>
+<li>每个路由器维护全网拓扑的链路状态数据库</li>
+<li>使用洪泛法交换链路状态信息</li>
+<li>收敛速度快，无慢收敛问题</li>
+<li>可将 AS 划分为区域，减少路由信息交换量</li>
+</ul>
+<h2 id="s27792471">4.5 ARP 与 ICMP</h2>
+
+<h3 id="s26638075">ARP 地址解析协议 <span class="tag-must">必考</span></h3>
+<p><strong>是什么？</strong>ARP 将 IP 地址解析为 MAC 地址。</p>
+<p><strong>为什么需要？</strong>数据链路层需要 MAC 地址来封装帧，但上层只知道目的 IP 地址。ARP 在广播域内广播「谁的 IP 是这个？」，拥有该 IP 的主机回复自己的 MAC 地址。</p>
+<p>ARP 缓存：将解析结果缓存一段时间（通常 20 分钟），避免重复发送 ARP 请求。</p>
+<h3 id="s16250885">ICMP 互联网控制报文协议 <span class="tag-key">重点</span></h3>
+<p><span class="kp">ICMP</span>——IP 层的辅助协议，用于传递差错报告和查询信息。常用类型：</p>
+<ul>
+<li>PING（回显请求/应答）——测试连通性</li>
+<li>目的不可达——路由器无法交付数据报</li>
+<li>TTL 超时（traceroute 利用此原理）</li>
+</ul>
+<h2 id="s75020109">4.6 IPv6</h2>
+
+<h3 id="s95817359">IPv6 特点 <span class="tag-key">重点</span></h3>
+<ul>
+<li>地址从 32 位扩展到 <span class="kp">128 位</span></li>
+<li>首部固定为 40 字节（简化首部，提高处理效率）</li>
+<li>支持扩展首部（逐跳选项、路由选项、分片选项等）</li>
+<li>不再在路由器处分片（由发送端处理）</li>
+<li>不设检验和字段</li>
+<li>支持自动配置和任播地址</li>
+</ul>
+<blockquote>易错：IPv6 地址不是 IPv4 的简单扩容。IPv6 还改变了首部格式，添加了流标签（Flow Label）支持 QoS，并移除了检验和。</blockquote>
+<span class="tag-key">重点</span>
+
+
+
+</body>
+</html>
