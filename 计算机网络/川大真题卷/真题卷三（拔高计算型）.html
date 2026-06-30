@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>四川大学计算机网络 · 真题模拟卷三（拔高计算型）</title>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\(', '\)']],
+    displayMath: [['$$', '$$'], ['\[', '\]']]
+  }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"></script>
+<style>
+/* === ExamPass Shared Styles === */
+:root {
+  --paper: #fdf6e3;
+  --paper-dark: #f5ecd7;
+  --ink: #2c2c2c;
+  --ink-light: #555;
+  --accent: #2563eb;
+  --accent-hover: #1d4ed8;
+  --divider: #d6c8a8;
+  --card-bg: #fef9ef;
+  --card-border: #e8dcc8;
+  --correct: #22c55e;
+  --correct-bg: #f0fdf4;
+  --wrong: #ef4444;
+  --wrong-bg: #fef2f2;
+  --tag-bg: #fef3c7;
+  --tag-text: #92400e;
+  --radius: 6px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  font-family: "Microsoft YaHei", "Noto Sans SC", "SimSun", sans-serif;
+  font-size: 12pt; line-height: 1.75; color: var(--ink);
+  max-width: 860px; margin: auto; padding: 24px 20px 60px;
+  background: var(--paper);
+}
+
+@media print {
+  body { font-size: 10.5pt; background: #fff; }
+  .no-print { display: none !important; }
+  h1, h2, h3 { page-break-after: avoid; }
+}
+
+#exampass-header {
+  display: flex; justify-content: space-between; align-items: baseline;
+  padding: 6px 0; margin-bottom: 0;
+}
+.header-brand { font-size: 1.2em; font-weight: 700; color: #1a1a2e; letter-spacing: 0.3px; }
+.header-url  { font-size: 0.78em; color: #999; }
+.header-divider { border: none; border-top: 2px solid var(--divider); margin: 4px 0 20px 0; }
+
+h1 { font-size: 1.55em; text-align: center; border-bottom: 2px solid var(--divider); padding-bottom: 8px; margin-top: 0; }
+h2 { font-size: 1.25em; border-bottom: 1px solid var(--divider); padding-bottom: 4px; margin-top: 28px; }
+h3 { font-size: 1.08em; margin-top: 20px; color: var(--ink); }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+table { border-collapse: collapse; width: 100%; margin: 10px 0; font-size: 0.95em; }
+td, th { border: 1px solid var(--card-border); padding: 5px 9px; text-align: left; }
+th { background: var(--paper-dark); font-weight: 700; }
+
+.kp { font-weight: 700; color: var(--ink); }
+.exp { font-weight: 400; color: var(--ink-light); }
+blockquote { border-left: 3px solid #c0392b; background: #fef9ef; padding: 6px 14px; margin: 10px 0; font-size: 0.95em; }
+code { background: #f0ede0; padding: 2px 5px; border-radius: 3px; font-size: 0.92em; }
+pre { background: #f0ede0; padding: 10px; border-radius: var(--radius); overflow-x: auto; }
+
+div.toc { background: var(--card-bg); padding: 14px 18px; border: 1px solid var(--card-border); border-radius: var(--radius); margin-bottom: 22px; }
+div.toc ul { padding-left: 18px; }
+div.toc li { margin: 3px 0; font-size: 0.95em; }
+
+.tag-must { background: #fee2e2; color: #991b1b; padding: 1px 6px; border-radius: 3px; font-size: 0.82em; font-weight: 600; }
+.tag-key  { background: #fef3c7; color: #92400e; padding: 1px 6px; border-radius: 3px; font-size: 0.82em; font-weight: 600; }
+.tag-freq { background: #dbeafe; color: #1e40af; padding: 1px 6px; border-radius: 3px; font-size: 0.82em; font-weight: 600; }
+.tag-info { background: #f0fdf4; color: #166534; padding: 1px 6px; border-radius: 3px; font-size: 0.82em; font-weight: 600; }
+
+#score-box { display: none; background: var(--paper-dark); color: var(--ink); padding: 16px 20px; border-radius: var(--radius); margin: 14px 0; text-align: center; border: 1px solid var(--card-border); }
+#score-box .score-num { font-size: 2.2em; font-weight: 700; }
+#score-box .score-label { font-size: 0.85em; color: var(--ink-light); }
+
+.q-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: var(--radius); padding: 12px 14px; margin: 10px 0; transition: all 0.15s; }
+.q-card.correct { border-left: 3px solid var(--correct); background: #f7fdf4; }
+.q-card.wrong   { border-left: 3px solid var(--wrong); background: #fef9f9; }
+.q-card.partial { border-color: #f59e0b; }
+
+.q-num  { font-weight: 700; font-size: 0.98em; margin-bottom: 4px; }
+.q-text { margin-bottom: 8px; font-size: 0.98em; }
+
+.option { display: block; padding: 4px 10px; margin: 3px 0; border: 1px solid var(--card-border); border-radius: 4px; cursor: pointer; transition: all 0.12s; font-size: 0.93em; background: #fefcf5; }
+.option:hover { background: #f0ede0; }
+.option input { margin-right: 6px; }
+.option.selected { border-color: var(--accent); background: #eff6ff; }
+.option.correct-answer { border-color: var(--correct); background: var(--correct-bg); }
+.option.wrong-answer { border-color: var(--wrong); background: var(--wrong-bg); }
+
+.q-textarea { width: 100%; min-height: 56px; border: 1px solid var(--card-border); border-radius: 4px; padding: 6px 10px; font-family: inherit; font-size: 0.93em; background: #fefcf5; resize: vertical; }
+.q-textarea:focus { outline: none; border-color: var(--accent); }
+
+.badge-partial { background: #fef3c7; color: #92400e; }
+
+.result { display: none; margin-top: 8px; padding: 8px 12px; background: #fefcf5; border: 1px solid var(--card-border); border-radius: 4px; font-size: 0.9em; line-height: 1.6; }
+.result .badge { display: inline-block; padding: 1px 9px; border-radius: 3px; font-weight: 700; font-size: 0.82em; margin-right: 6px; }
+.badge-ok  { background: var(--correct-bg); color: #166534; }
+.badge-no  { background: var(--wrong-bg); color: #991b1b; }
+.badge-ref { background: #dbeafe; color: #1e40af; }
+
+.result .explanation { margin-top: 4px; color: var(--ink); }
+.result .pitfall { color: #b45309; margin-top: 3px; font-size: 0.9em; }
+
+.grading-bar { text-align: center; margin: 20px 0; }
+.grading-bar button { font-size: 1em; padding: 8px 32px; background: var(--accent); color: #fff; border: none; border-radius: var(--radius); cursor: pointer; font-weight: 600; letter-spacing: 0.3px; }
+.grading-bar button:hover { background: var(--accent-hover); }
+.grading-bar button:disabled { background: #bbb; cursor: not-allowed; }
+
+.fill-input { display: inline-block; width: 140px; padding: 3px 8px; border: 1px solid var(--card-border); border-radius: 4px; font-family: inherit; font-size: 0.93em; background: #fefcf5; margin: 2px 4px; }
+.fill-input:focus { outline: none; border-color: var(--accent); }
+.fill-input.fill-ok  { border-color: var(--correct); background: var(--correct-bg); }
+.fill-input.fill-no  { border-color: var(--wrong); background: var(--wrong-bg); }
+
+.source-note { background: #fef3c7; border: 1px solid #fcd34d; border-radius: 8px; padding: 12px 16px; margin-bottom: 20px; font-size: 0.9em; color: #92400e; }
+</style>
+</head>
+<body>
+
+<header id="exampass-header">
+  <div class="header-left"><span class="header-brand">ExamPass Assistant</span></div>
+  <div class="header-right"><span class="header-url">github.com/WUBING2023/ExamPass-Assistant</span></div>
+</header>
+<hr class="header-divider">
+
+<h1>四川大学计算机网络 · 真题模拟卷三</h1>
+<h2 style="text-align:center;color:#dc2626">拔高计算型</h2>
+<p style="text-align:center;color:var(--ink-light);font-size:0.95em">满分 100 分 | 建议 120 分钟 | 参照川大真题计算题型编写</p>
+
+<div class="source-note">
+  📚 <strong>命题说明：</strong>本卷参照四川大学计算机网络期末考试中的典型计算题型编写，包括子网划分（2014 级真题）、CRC 校验（2021-2022 真题）、TCP 拥塞控制分析（2021-2022 真题）、时延计算等。侧重于公式运用、数值计算和工程分析能力。
+</div>
+
+<div id="score-box"><div class="score-num" id="score-num">0</div><div class="score-label">总分</div></div>
+<div id="questions-container"></div>
+<div class="grading-bar no-print"><button onclick="gradeAll()" id="grade-btn">提交批改</button></div>
+
+<script>
+var Q = [
+  {"type": "choice", "points": 2, "question": "带宽为 4kHz、信噪比为 30dB 的信道，根据香农公式极限信息传输速率约为：", "options": ["A. 8 kbps", "B. 26 kbps", "C. 40 kbps", "D. 80 kbps"], "answer": 2, "explanation": "30dB → S/N = $10^{30/10}=1000$，$C=4000\\times\\log_2(1001)\\approx 4000\\times 9.97\\approx 40$ kbps。"},
+  {"type": "choice", "points": 2, "question": "采用 8 种相位、每种相位 2 种振幅的调制方式，在 3kHz 的无噪声信道上，最大数据率是：", "options": ["A. 6 kbps", "B. 12 kbps", "C. 18 kbps", "D. 24 kbps"], "answer": 2, "explanation": "8×2=16 种组合 → 每码元 $\\log_2 16=4$ bit。奈氏准则：$C=2W\\log_2 V=2\\times 3000\\times 4=24000$ bps=24 kbps。"},
+  {"type": "choice", "points": 2, "question": "C 类网络 202.115.12.0/24 需要划分 6 个子网，子网掩码应为：", "options": ["A. 255.255.255.128", "B. 255.255.255.192", "C. 255.255.255.224", "D. 255.255.255.240"], "answer": 2, "explanation": "6 个子网需借 3 位（$2^3=8\\ge 6$），子网掩码为 /27 = 255.255.255.224。"},
+  {"type": "choice", "points": 2, "question": "TCP 发送 1MB 数据，设 MSS=1460 字节，初始 cwnd=1MSS，ssthresh=16MSS，无超时。约需多少个 RTT？", "options": ["A. 约 20 个", "B. 约 30 个", "C. 约 46 个", "D. 约 60 个"], "answer": 2, "explanation": "1MB≈685 MSS。慢开始：1→2→4→8→16（4 RTT，发 31 MSS）。剩余 654 MSS，拥塞避免每 RTT 增 1，约 41 RTT。共约 45-46 RTT。"},
+  {"type": "choice", "points": 2, "question": "某链路传播时延 20ms，带宽 100Mbps，时延带宽积为：", "options": ["A. 200 bit", "B. 2 Mbit", "C. 20 Mbit", "D. 200 Mbit"], "answer": 1, "explanation": "时延带宽积 = 传播时延 × 带宽 = $20\\times 10^{-3} \\times 100\\times 10^6 = 2\\times 10^6$ bit = 2 Mbit = 250 KB。"},
+  {"type": "choice", "points": 2, "question": "一个网络 192.168.1.0/24 使用子网掩码 255.255.255.240，则每个子网最多可分配的主机数是：", "options": ["A. 16", "B. 14", "C. 32", "D. 30"], "answer": 1, "explanation": "/28（240=11110000），主机位 4 位，$2^4-2=14$ 个可用地址（去掉全 0 网络地址和全 1 广播地址）。"},
+  {"type": "choice", "points": 2, "question": "以太网最小帧长为 64 字节。若数据率提高到 1Gbps，为保证 CSMA/CD 正常工作，争用期不变时最小帧长应变为：", "options": ["A. 64 字节", "B. 512 字节", "C. 640 字节", "D. 5120 字节"], "answer": 1, "explanation": "争用期 = 最小帧发送时间。速率从 100M→1G（10 倍），最小帧长也需 ×10，即 64×10=640 字节。但在千兆以太网中实际采用了载波扩展，最小帧长仍为 64 字节。传统算法：640 字节。"},
+  {"type": "choice", "points": 2, "question": "考虑 CRC 校验，生成多项式 G=1011（4 位），数据 D=1101011011，R 的值是：", "options": ["A. 100", "B. 011", "C. 111", "D. 010"], "answer": 2, "explanation": "G 是 4 位 → R 为 3 位。$D\\cdot 2^3 = 1101011011000$。做二进制除法（异或），得余数 111。"},
+  {"type": "choice", "points": 2, "question": "TCP 建立连接时，若 SYN 报文段中 seq=x，则三次握手后双方的初始序号范围是：", "options": ["A. 双方序号都从 0 开始", "B. 双方序号都从 1 开始", "C. 客户 x，服务器 y，各自独立", "D. 双方共用同一序号空间"], "answer": 2, "explanation": "TCP 双方各自独立选择初始序号（ISN），客户选 x，服务器选 y，互不干扰。"},
+  {"type": "choice", "points": 2, "question": "某路由器收到 IP 分组，目的地址为 192.168.5.65。路由表中有：① 192.168.5.64/26 ② 192.168.5.0/24 ③ 0.0.0.0/0。应选择哪条路由？", "options": ["A. ①", "B. ②", "C. ③", "D. 随机"], "answer": 0, "explanation": "CIDR 最长前缀匹配原则。192.168.5.65 与 ① /26 匹配（192.168.5.64~127），前缀长度 26 > 24 > 0，选择 ①。"},
+  {"type": "choice", "points": 2, "question": "对于 IP 地址 172.16.254.0/23 进行子网划分，子网 a 需 240 台主机，子网掩码应为：", "options": ["A. /24", "B. /25", "C. /26", "D. /27"], "answer": 0, "explanation": "240 台主机需 8 位主机位（$2^8-2=254\\ge 240$），即掩码 /24=255.255.255.0。若用 /25 只有 126 可用地址，不够。注意原网络是 /23，子网掩码 /24 即可。"},
+  {"type": "choice", "points": 2, "question": "在 TCP 拥塞控制中，当 cwnd=24 MSS、ssthresh=16 MSS，收到 3 个重复 ACK 后，cwnd 变为：", "options": ["A. 1 MSS", "B. 8 MSS", "C. 12 MSS", "D. 16 MSS"], "answer": 2, "explanation": "收到 3 个重复 ACK（非超时）→ 快恢复：ssthresh=cwnd/2=12，cwnd=ssthresh=12。如果是超时：cwnd=1。"},
+  {"type": "choice", "points": 2, "question": "假设一个数据包从 A 经 3 个路由器 R1, R2, R3 到 B。A-R1 链路 1000km/1Mbps，R1-R2 链路 2000km/2Mbps，R2-R3 链路 500km/4Mbps，R3-B 链路 1000km/2Mbps。包长 1000 字节，传播速度 $2\\times10^8$ m/s。总延迟约为：", "options": ["A. 约 24ms", "B. 约 45ms", "C. 约 60ms", "D. 约 80ms"], "answer": 1, "explanation": "传播延迟=(1000+2000+500+1000)km/(2×10⁸m/s)=4500×10³/2×10⁸=22.5ms。传输延迟总和=8000/(1M)+8000/(2M)+8000/(4M)+8000/(2M)=8+4+2+4=18ms。处理+排队≈5ms。总≈45.5ms。"},
+  {"type": "choice", "points": 2, "question": "一个路由器刚刚收到以下新地址块：57.6.96.0/21、57.6.104.0/21、57.6.112.0/21、57.6.120.0/21。如果它们都使用同一条出线路，它们可以被聚合为：", "options": ["A. 57.6.96.0/19", "B. 57.6.96.0/20", "C. 57.6.96.0/21", "D. 57.6.64.0/18"], "answer": 0, "explanation": "96=01100000, 104=01101000, 112=01110000, 120=01111000。共同前缀 19 位：57.6.96.0/19。聚合后覆盖 96.0~127.255。"},
+  {"type": "choice", "points": 2, "question": "若 TCP 往返时间 RTT 的当前值 RTTs=30ms，新测量到的 RTT 样本为 26ms（α=0.125），新的 RTTs 为：", "options": ["A. 26.0 ms", "B. 28.5 ms", "C. 29.5 ms", "D. 30.0 ms"], "answer": 2, "explanation": "$RTTs_{new} = (1-\\alpha) \\times RTTs_{old} + \\alpha \\times RTT_{sample} = 0.875\\times 30 + 0.125\\times 26 = 26.25 + 3.25 = 29.5$ ms。"},
+
+  {"type": "tf", "points": 1, "question": "奈氏准则给出了有噪声信道的信息传输速率上限。", "answer": 1},
+  {"type": "tf", "points": 1, "question": "香农公式表明：信道带宽越大、信噪比越高，极限传输速率越高。", "answer": 0},
+  {"type": "tf", "points": 1, "question": "CRC 校验码能检测出所有奇数个错误。", "answer": 0, "explanation": "CRC 的检错能力取决于生成多项式。使用特定的生成多项式可以检测所有单比特错误、双比特错误、奇数个错误和突发错误。"},
+  {"type": "tf", "points": 1, "question": "CIDR 使用最长前缀匹配原则进行路由选择。", "answer": 0},
+  {"type": "tf", "points": 1, "question": "在距离向量路由中，减小链路代价会导致无穷计数问题。", "answer": 1, "explanation": "无穷计数问题发生在链路代价增大时（"坏消息传得慢"），链路代价减小时收敛很快。"},
+  {"type": "tf", "points": 1, "question": "TCP 的超时重传时间 RTO 应小于 RTT，以快速响应丢包。", "answer": 1, "explanation": "RTO 应略大于 RTT（通常 RTO=RTTs+4×RTTd），否则会导致不必要的重传。"},
+  {"type": "tf", "points": 1, "question": "一个 IP 数据报在分片后，各分片的标识字段不同。", "answer": 1, "explanation": "同一数据报的所有分片标识字段相同，以便目的主机重组。"},
+  {"type": "tf", "points": 1, "question": "UDP 校验和覆盖 UDP 首部、数据以及伪首部。", "answer": 0},
+  {"type": "tf", "points": 1, "question": "以太网交换机收到未知目的 MAC 地址的帧时会将其丢弃。", "answer": 1, "explanation": "交换机会向除接收端口外的所有端口泛洪（flood）该帧。"},
+  {"type": "tf", "points": 1, "question": "IPv6 不再支持数据包分片功能，分片只在源节点进行。", "answer": 0, "explanation": "IPv6 路由器不进行分片，分片只能在源节点进行。如果数据包过大，路由器发送 ICMPv6 "Packet Too Big" 消息。"},
+
+  {"type": "fill", "points": 2, "question": "香农公式：$C = W \\log_2(1 + \\frac{S}{N})$，其中 $S/N$ 为____，单位通常是____。30dB 对应的 $S/N$ 值为____。", "answer": ["信噪比", "dB", "1000"]},
+  {"type": "fill", "points": 2, "question": "奈氏准则：理想低通信道最大码元速率 = ____，其中 $W$ 为带宽（Hz）。若采用 $V$ 种离散电平，最大数据率 = ____。", "answer": ["2W", "2Wlog₂V"]},
+  {"type": "fill", "points": 2, "question": "时延带宽积 = ____ × ____，单位是____。", "answer": ["传播时延", "带宽", "bit"]},
+  {"type": "fill", "points": 2, "question": "TCP 超时重传时间 $RTO = RTTs + ____ \\times RTTd$，其中 $RTTs$ 是____，$RTTd$ 是____。", "answer": ["4", "平滑往返时间", "往返时间偏差"]},
+
+  {"type": "calc", "points": 10, "question": "<strong>【子网划分】</strong>某单位分配到一个 C 类网络地址 202.115.12.0。现需要划分 6 个子网，其中子网 A 需要 25 台主机，子网 B 需要 12 台主机，子网 C 需要 6 台主机，子网 D、E、F 各需要 2 台主机。<br>(1) 请写出子网掩码；<br>(2) 给出各子网的网络地址和可用 IP 地址范围；<br>(3) 总共浪费了多少个 IP 地址？", "answer": -1, "explanation": "<strong>(1) 子网掩码：</strong>255.255.255.224 (/27)，借 3 位，每个子网 32 个地址（30 可用）。<br><br><strong>(2) 子网分配：</strong><br>A：202.115.12.0/27，可用 .1~.30（25 台，够用）<br>B：202.115.12.32/27，可用 .33~.62（12 台，够用）<br>C：202.115.12.64/27，可用 .65~.94（6 台，够用）<br>D：202.115.12.96/27，可用 .97~.126（2 台）<br>E：202.115.12.128/27，可用 .129~.158（2 台）<br>F：202.115.12.160/27，可用 .161~.190（2 台）<br>剩余：202.115.12.192/27~202.115.12.224/27 未分配<br><br><strong>(3) 浪费计算：</strong><br>A：30-25=5，B：30-12=18，C：30-6=24，D：30-2=28，E：30-2=28，F：30-2=28<br>已分配浪费 = 5+18+24+28+28+28 = 131<br>未分配 2 个子网 = 2×32 = 64<br>总浪费 = 131+64 = 195 个地址<br><br><strong>优化方案：</strong>实际可用 VLSM 变长子网掩码减少浪费，但题目要求等长子网划分。"},
+
+  {"type": "calc", "points": 12, "question": "<strong>【CRC 校验】</strong>已知发送数据 $D = 101001$，生成多项式 $G = 1101$（即 $x^3+x^2+1$）。<br>(1) 求 CRC 冗余码 $R$；<br>(2) 写出完整的发送序列；<br>(3) 若接收方收到 101001<strong>011</strong>，能否检测出错误？为什么？", "answer": -1, "explanation": "<strong>(1) 求 R：</strong><br>G 为 4 位 → R 为 3 位（r=3）。<br>$D \\cdot 2^3 = 101001000$<br>做模 2 除法：<br><code>101001000 ÷ 1101</code><br>逐位异或：<br>1010÷1101 → 商 1，余 0111<br>下移 0 → 01110<br>01110÷1101 → 商 1，余 00011<br>下移 0 → 001100<br>001100÷1101 → 商 0，下移 0 → 011000<br>011000÷1101 → 商 1，余 00101<br>下移 0 → 01010<br>01010÷1101 → 商 0，下移 0 → 10100<br>10100÷1101 → 商 1，余 01110 → <strong>余数 001</strong><br>所以 R = 001。<br><br><strong>(2) 完整发送序列：</strong>101001<strong>001</strong><br><br><strong>(3) 检测：</strong>接收方将 101001011 ÷ 1101，余数不为 0（余数为 010 ≠ 0），可以检测出错误。"},
+
+  {"type": "calc", "points": 14, "question": "<strong>【TCP 拥塞控制分析】</strong>下图是 TCP 拥塞窗口（cwnd）随传输轮次（RTT）变化的示意图。请回答：<br><img src=\"../../_images/page279_img4.jpeg\" style=\"max-width:100%;border:1px solid var(--card-border);border-radius:4px;margin:8px 0\" alt=\"TCP拥塞控制示意图\"><br>(1) 慢开始阶段是哪些轮次？拥塞避免阶段是哪些轮次？<br>(2) 第 16 轮次后发生了什么？ssthresh 被设置为多少？<br>(3) 第 22 轮次后发生了什么？与第 16 轮次后的处理有何不同？<br>(4) 第 1、7、15、21 轮次时的 ssthresh 值分别是多少？<br>(5) 假设每个报文段 MSS=1KB，第 22 轮次后共成功发送了多少数据？", "answer": -1, "explanation": "<strong>(1)</strong> 慢开始：[1,6] 和 [17,20]（cwnd 指数增长）。拥塞避免：[7,15] 和 [21,22]（cwnd 线性增长）。<br><strong>(2)</strong> 第 16 轮发生超时（timeout），cwnd 骤降到 1，ssthresh = 之前 cwnd 的一半 ≈ 21。<br><strong>(3)</strong> 第 22 轮后收到 3 个重复 ACK（非超时），触发快重传+快恢复：ssthresh = cwnd/2，cwnd = ssthresh（不降到 1）。与超时不同：超时 cwnd 降为 1 重新慢开始，3 dup ACK 后 cwnd 减半直接拥塞避免。<br><strong>(4)</strong> 第 1 轮：ssthresh=32；第 7 轮：ssthresh=32；第 15 轮：ssthresh=32（未变）；第 21 轮：ssthresh≈21（第 16 轮超时后调整）。<br><strong>(5)</strong> 各轮 cwnd 值：1,2,4,8,16,32,33,34,35,36,37,38,39,40,41,42→1,2,4,8,16,21,22→。累计约 530 MSS ≈ 530KB。<br><br><em>注：此题数据参考了川大 2021-2022 期末真题，具体数值需根据实际图表确定。</em>"},
+
+  {"type": "comprehensive", "points": 14, "question": "<strong>【综合计算】</strong>主机 A 向主机 B 发送一个 10MB 的文件。A 和 B 之间通过 3 段链路连接：L1(A-R1)：长度 2000km，速率 10Mbps；L2(R1-R2)：长度 5000km，速率 50Mbps；L3(R2-B)：长度 1000km，速率 20Mbps。信号传播速度为 $2\\times10^8$ m/s。忽略处理时延和排队时延。<br>(1) 计算端到端的总传播时延；<br>(2) 计算整个文件通过每段链路的传输时延（假设无分组交换的存储转发延迟）；<br>(3) 若采用分组交换（每个分组 1500 字节，存储转发），计算总时延；<br>(4) 若 TCP 连接已建立，cwnd 足够大，接收窗口 rwnd=64KB，瓶颈带宽是多少？最大吞吐量约为多少？", "answer": -1, "explanation": "<strong>(1) 总传播时延：</strong><br>$d_{prop} = (2000+5000+1000) \\times 10^3 / (2\\times 10^8) = 8000 \\times 10^3 / 2 \\times 10^8 = 40$ ms<br><br><strong>(2) 各链路传输时延：</strong><br>$d_{trans1} = 10\\times 10^6 \\times 8 / (10\\times 10^6) = 8$ s<br>$d_{trans2} = 80\\times 10^6 / (50\\times 10^6) = 1.6$ s<br>$d_{trans3} = 80\\times 10^6 / (20\\times 10^6) = 4$ s<br>不考虑存储转发时，总传输时延取最大：8s。总时延 = 8 + 0.04 ≈ 8.04s。<br><br><strong>(3) 分组交换存储转发：</strong><br>分组数 = 10MB/1460B ≈ 6849 个（TCP 有效载荷），加上首部 ≈ 7192 个（每个 1500B）。<br>第一个分组到达：$0.0012+0.00024+0.0006+0.04 \\approx 0.0419$ s<br>最后一个分组：需等前面的分组传输完，瓶颈在第一段链路（最慢）。<br>总时延 = 第一个分组时延 + (n-1) × 瓶颈每分组传输时间<br>= 0.0419 + 7191 × (1500×8/10Mbps) = 0.0419 + 7191 × 0.0012 ≈ 0.0419 + 8.629 ≈ <strong>8.67s</strong><br><br><strong>(4) 瓶颈带宽：</strong>min(10,50,20) = <strong>10Mbps</strong><br>最大吞吐量 = min(瓶颈带宽, rwnd/RTT) = min(10Mbps, 64KB/0.04s) = min(10Mbps, 12.8Mbps) = <strong>10Mbps</strong><br>实际吞吐量约 10Mbps。"}
+];
+
+var LABELS = {"page_title": "章节测试", "section": {"choice": "一、选择题（每题2分，共30分）", "tf": "二、判断题（每题1分，共10分）", "fill": "三、填空题（每空2分，共8分）", "calc": "四、计算题（共36分）", "comprehensive": "五、综合分析题（14分）"}, "section_order": ["choice", "tf", "fill", "calc", "comprehensive"], "points_suffix": "分", "true_label": "正确", "false_label": "错误", "placeholder": "在此作答...", "pitfall_prefix": "易错提醒：", "correct_label": "正确", "wrong_label": "错误", "partial_label": "部分正确", "answer_prefix": "正确答案：", "reference_label": "参考答案", "graded_label": "已批改", "grade_button": "提交批改", "score_label": "总分", "duration_prefix": "满分 100 分 | 建议 ", "duration_suffix": " 分钟 | 选择答案后点击提交批改"};
+
+function tfAnswerIndex(ans) {
+  if (typeof ans === 'boolean') return ans ? 0 : 1;
+  if (typeof ans === 'number') return ans === 0 ? 0 : 1;
+  var s = ('' + ans).trim().toLowerCase();
+  var truthy = ['0', 't', 'true', '正确', '对', '是', 'yes', 'y', '√', '✓'];
+  var falsy  = ['1', 'f', 'false', '错误', '错', '否', 'no', 'n', '×', 'x'];
+  if (truthy.indexOf(s) !== -1) return 0;
+  if (falsy.indexOf(s) !== -1) return 1;
+  return ans ? 0 : 1;
+}
+
+function choiceAnswerIndex(ans, options) {
+  if (typeof ans === 'number') return ans;
+  var s = ('' + ans).trim();
+  if (/^[A-Za-z]$/.test(s)) return s.toUpperCase().charCodeAt(0) - 65;
+  if (/^\d+$/.test(s)) return parseInt(s, 10);
+  if (options) { for (var i = 0; i < options.length; i++) { if (('' + options[i]).trim() === s) return i; } }
+  return parseInt(s, 10);
+}
+
+function normText(s) {
+  s = ('' + s).trim().toLowerCase();
+  s = s.replace(/[\s　]+/g, '');
+  s = s.replace(/[.,;:!?。，、；：！？“”"'（）()【】\[\]<>《》]/g, '');
+  s = s.replace(/[！-～]/g, function (c) { return String.fromCharCode(c.charCodeAt(0) - 0xfee0); });
+  return s;
+}
+
+function fillBlankCount(question) { var m = ('' + question).match(/(_{2,}|＿+)/g); return m ? m.length : 0; }
+
+function fillBlankAnswers(ans, nBlanks) {
+  if (nBlanks < 1) nBlanks = 1;
+  if (!Array.isArray(ans)) return padBlanks([[ans]], nBlanks);
+  if (ans.length && Array.isArray(ans[0])) return padBlanks(ans, nBlanks);
+  if (nBlanks === 1) return [ans];
+  if (ans.length === nBlanks) { return ans.map(function (a) { return [a]; }); }
+  return padBlanks([ans], nBlanks);
+}
+
+function padBlanks(arr, n) { var out = arr.slice(0, n); while (out.length < n) out.push(['']); return out; }
+
+function build() {
+  var container = document.getElementById('questions-container');
+  if (!container) return;
+  var order = LABELS.section_order || [];
+  Q.forEach(function (q, i) { q._i = i; });
+  Q.sort(function (a, b) { var oa = order.indexOf(a.type); if (oa === -1) oa = 99; var ob = order.indexOf(b.type); if (ob === -1) ob = 99; return oa - ob || a._i - b._i; });
+  var h = '', sec = '', titles = LABELS.section;
+  for (var i = 0; i < Q.length; i++) {
+    var q = Q[i];
+    if (q.type !== sec) { sec = q.type; if (titles[q.type]) h += '<h3>' + titles[q.type] + '</h3>'; }
+    var qid = 'q' + i;
+    h += '<div class="q-card" id="card-' + qid + '">';
+    h += '<div class="q-num">' + (i + 1) + '. (' + q.points + ' ' + LABELS.points_suffix + ')</div>';
+    if (q.type === 'fill') { h += '<div class="q-text">' + renderFill(q, qid) + '</div>'; }
+    else { h += '<div class="q-text">' + q.question + '</div>'; }
+    if (q.type === 'choice') {
+      var opts = q.options || [];
+      for (var j = 0; j < opts.length; j++) {
+        h += '<label class="option" id="opt-' + qid + '-' + j + '" onclick="sel(\'' + qid + '\',' + j + ')">';
+        h += '<input type="radio" name="' + qid + '" value="' + j + '">' + opts[j] + '</label>';
+      }
+    } else if (q.type === 'tf') {
+      h += '<label class="option" id="opt-' + qid + '-0" onclick="sel(\'' + qid + '\',0)"><input type="radio" name="' + qid + '" value="0">' + LABELS.true_label + '</label>';
+      h += '<label class="option" id="opt-' + qid + '-1" onclick="sel(\'' + qid + '\',1)"><input type="radio" name="' + qid + '" value="1">' + LABELS.false_label + '</label>';
+    } else if (q.type === 'fill') { /* already rendered */ }
+    else { h += '<textarea class="q-textarea" id="text-' + qid + '" placeholder="' + LABELS.placeholder + '" rows="4"></textarea>'; }
+    h += '<div class="result" id="result-' + qid + '"><span class="badge" id="badge-' + qid + '"></span><span id="correct-' + qid + '"></span>';
+    h += '<div class="explanation">' + (q.explanation || '') + '</div></div></div>';
+  }
+  container.innerHTML = h;
+  if (window.MathJax && MathJax.typesetPromise) { MathJax.typesetPromise([container]).catch(function (err) { console.error(err); }); }
+}
+
+function renderFill(q, qid) {
+  var k = 0;
+  var html = ('' + q.question).replace(/(_{2,}|＿+)/g, function () {
+    var inp = '<input type="text" class="fill-input" id="fill-' + qid + '-' + k + '" autocomplete="off" spellcheck="false">';
+    k++;
+    return inp;
+  });
+  return html;
+}
+
+document.addEventListener('DOMContentLoaded', build);
+if (document.readyState === 'interactive' || document.readyState === 'complete') { build(); }
+
+function sel(qid, idx) {
+  var prefix = 'opt-' + qid + '-';
+  var all = document.querySelectorAll('[id^="' + prefix + '"]');
+  for (var i = 0; i < all.length; i++) all[i].classList.remove('selected');
+  var target = document.getElementById('opt-' + qid + '-' + idx);
+  if (target) target.classList.add('selected');
+  var radio = document.querySelector('input[name="' + qid + '"][value="' + idx + '"]');
+  if (radio) radio.checked = true;
+}
+
+function gradeAll() {
+  var score = 0;
+  for (var i = 0; i < Q.length; i++) {
+    var q = Q[i], qid = 'q' + i;
+    var card = document.getElementById('card-' + qid), result = document.getElementById('result-' + qid);
+    var badge = document.getElementById('badge-' + qid), correctEl = document.getElementById('correct-' + qid);
+    if (!card || !result) continue;
+    result.style.display = 'block';
+    if (q.type === 'choice' || q.type === 'tf') { score += gradeSingle(q, qid, card, badge, correctEl); }
+    else if (q.type === 'fill') { score += gradeFill(q, qid, card, badge, correctEl); }
+    else { card.classList.add('correct'); badge.className = 'badge badge-ref'; badge.textContent = LABELS.reference_label; }
+  }
+  var sb = document.getElementById('score-box');
+  if (sb) { sb.style.display = 'block'; document.getElementById('score-num').textContent = roundScore(score); sb.scrollIntoView({ behavior: 'smooth' }); }
+  var opts = document.querySelectorAll('.option'); for (var a = 0; a < opts.length; a++) opts[a].style.pointerEvents = 'none';
+  var tas = document.querySelectorAll('.q-textarea'); for (var b = 0; b < tas.length; b++) tas[b].disabled = true;
+  var fis = document.querySelectorAll('.fill-input'); for (var c = 0; c < fis.length; c++) fis[c].disabled = true;
+  var btn = document.getElementById('grade-btn'); if (btn) { btn.disabled = true; btn.textContent = LABELS.graded_label; }
+}
+
+function roundScore(s) { return Math.round(s * 10) / 10; }
+
+function gradeSingle(q, qid, card, badge, correctEl) {
+  var ansIdx = q.type === 'tf' ? tfAnswerIndex(q.answer) : choiceAnswerIndex(q.answer, q.options);
+  var radio = document.querySelector('input[name="' + qid + '"]:checked');
+  if (radio && parseInt(radio.value, 10) === ansIdx) {
+    card.classList.add('correct'); badge.className = 'badge badge-ok'; badge.textContent = LABELS.correct_label; correctEl.innerHTML = '';
+    var ok = document.getElementById('opt-' + qid + '-' + ansIdx); if (ok) ok.classList.add('correct-answer');
+    return q.points;
+  }
+  card.classList.add('wrong'); badge.className = 'badge badge-no'; badge.textContent = LABELS.wrong_label;
+  var ansText = q.type === 'choice' ? String.fromCharCode(65 + ansIdx) + '. ' + (q.options ? q.options[ansIdx] : '') : (ansIdx === 0 ? LABELS.true_label : LABELS.false_label);
+  correctEl.innerHTML = LABELS.answer_prefix + ansText;
+  if (radio) { var wrongOpt = document.getElementById('opt-' + qid + '-' + radio.value); if (wrongOpt) wrongOpt.classList.add('wrong-answer'); }
+  var corr = document.getElementById('opt-' + qid + '-' + ansIdx); if (corr) corr.classList.add('correct-answer');
+  return 0;
+}
+
+function gradeFill(q, qid, card, badge, correctEl) {
+  var nBlanks = fillBlankCount(q.question);
+  var blanks = fillBlankAnswers(q.answer, nBlanks), n = blanks.length, hit = 0, displays = [];
+  for (var b = 0; b < n; b++) {
+    var inp = document.getElementById('fill-' + qid + '-' + b);
+    var accepted = blanks[b] || [''];
+    var user = inp ? normText(inp.value) : '';
+    var ok = false;
+    for (var a = 0; a < accepted.length; a++) { if (accepted[a] !== '' && normText(accepted[a]) === user && user !== '') { ok = true; break; } }
+    if (inp) inp.classList.add(ok ? 'fill-ok' : 'fill-no');
+    if (ok) hit++;
+    displays.push((n > 1 ? (b + 1) + '. ' : '') + accepted.filter(function (x) { return x !== ''; }).join(' / '));
+  }
+  var earned = roundScore(q.points * hit / n);
+  correctEl.innerHTML = LABELS.answer_prefix + displays.join('   ');
+  if (hit === n) { card.classList.add('correct'); badge.className = 'badge badge-ok'; badge.textContent = LABELS.correct_label; }
+  else if (hit > 0) { card.classList.add('partial'); badge.className = 'badge badge-partial'; badge.textContent = LABELS.partial_label; }
+  else { card.classList.add('wrong'); badge.className = 'badge badge-no'; badge.textContent = LABELS.wrong_label; }
+  return earned;
+}
+</script>
+</body>
+</html>

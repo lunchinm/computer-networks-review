@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>四川大学计算机网络 · 真题模拟卷一（基础概念型）</title>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\(', '\)']],
+    displayMath: [['$$', '$$'], ['\[', '\]']]
+  }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"></script>
+<style>
+/* === ExamPass Shared Styles === */
+:root {
+  --paper: #fdf6e3;
+  --paper-dark: #f5ecd7;
+  --ink: #2c2c2c;
+  --ink-light: #555;
+  --accent: #2563eb;
+  --accent-hover: #1d4ed8;
+  --divider: #d6c8a8;
+  --card-bg: #fef9ef;
+  --card-border: #e8dcc8;
+  --correct: #22c55e;
+  --correct-bg: #f0fdf4;
+  --wrong: #ef4444;
+  --wrong-bg: #fef2f2;
+  --tag-bg: #fef3c7;
+  --tag-text: #92400e;
+  --radius: 6px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  font-family: "Microsoft YaHei", "Noto Sans SC", "SimSun", sans-serif;
+  font-size: 12pt; line-height: 1.75; color: var(--ink);
+  max-width: 860px; margin: auto; padding: 24px 20px 60px;
+  background: var(--paper);
+}
+
+@media print {
+  body { font-size: 10.5pt; background: #fff; }
+  .no-print { display: none !important; }
+  h1, h2, h3 { page-break-after: avoid; }
+}
+
+#exampass-header {
+  display: flex; justify-content: space-between; align-items: baseline;
+  padding: 6px 0; margin-bottom: 0;
+}
+.header-brand { font-size: 1.2em; font-weight: 700; color: #1a1a2e; letter-spacing: 0.3px; }
+.header-url  { font-size: 0.78em; color: #999; }
+.header-divider { border: none; border-top: 2px solid var(--divider); margin: 4px 0 20px 0; }
+
+h1 { font-size: 1.55em; text-align: center; border-bottom: 2px solid var(--divider); padding-bottom: 8px; margin-top: 0; }
+h2 { font-size: 1.25em; border-bottom: 1px solid var(--divider); padding-bottom: 4px; margin-top: 28px; }
+h3 { font-size: 1.08em; margin-top: 20px; color: var(--ink); }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+table { border-collapse: collapse; width: 100%; margin: 10px 0; font-size: 0.95em; }
+td, th { border: 1px solid var(--card-border); padding: 5px 9px; text-align: left; }
+th { background: var(--paper-dark); font-weight: 700; }
+
+.kp { font-weight: 700; color: var(--ink); }
+.exp { font-weight: 400; color: var(--ink-light); }
+.exp em, .exp strong { color: var(--ink); }
+
+blockquote {
+  border-left: 3px solid #c0392b; background: #fef9ef;
+  padding: 6px 14px; margin: 10px 0; font-size: 0.95em;
+}
+code { background: #f0ede0; padding: 2px 5px; border-radius: 3px; font-size: 0.92em; }
+pre { background: #f0ede0; padding: 10px; border-radius: var(--radius); overflow-x: auto; }
+
+div.toc {
+  background: var(--card-bg); padding: 14px 18px;
+  border: 1px solid var(--card-border); border-radius: var(--radius); margin-bottom: 22px;
+}
+div.toc ul { padding-left: 18px; }
+div.toc li { margin: 3px 0; font-size: 0.95em; }
+
+.tag-must   { background: #fee2e2; color: #991b1b; padding: 1px 6px; border-radius: 3px; font-size: 0.82em; font-weight: 600; }
+.tag-key    { background: #fef3c7; color: #92400e; padding: 1px 6px; border-radius: 3px; font-size: 0.82em; font-weight: 600; }
+.tag-freq   { background: #dbeafe; color: #1e40af; padding: 1px 6px; border-radius: 3px; font-size: 0.82em; font-weight: 600; }
+.tag-info   { background: #f0fdf4; color: #166534; padding: 1px 6px; border-radius: 3px; font-size: 0.82em; font-weight: 600; }
+
+/* === Interactive Test Styles === */
+#score-box {
+  display: none; background: var(--paper-dark); color: var(--ink);
+  padding: 16px 20px; border-radius: var(--radius); margin: 14px 0;
+  text-align: center; border: 1px solid var(--card-border);
+}
+#score-box .score-num { font-size: 2.2em; font-weight: 700; }
+#score-box .score-label { font-size: 0.85em; color: var(--ink-light); }
+
+.q-card {
+  background: var(--card-bg); border: 1px solid var(--card-border);
+  border-radius: var(--radius); padding: 12px 14px; margin: 10px 0;
+  transition: all 0.15s;
+}
+.q-card.correct { border-left: 3px solid var(--correct); background: #f7fdf4; }
+.q-card.wrong   { border-left: 3px solid var(--wrong); background: #fef9f9; }
+
+.q-num  { font-weight: 700; font-size: 0.98em; margin-bottom: 4px; }
+.q-text { margin-bottom: 8px; font-size: 0.98em; }
+
+.option {
+  display: block; padding: 4px 10px; margin: 3px 0;
+  border: 1px solid var(--card-border); border-radius: 4px;
+  cursor: pointer; transition: all 0.12s; font-size: 0.93em;
+  background: #fefcf5;
+}
+.option:hover            { background: #f0ede0; }
+.option input            { margin-right: 6px; }
+.option.selected         { border-color: var(--accent); background: #eff6ff; }
+.option.correct-answer   { border-color: var(--correct); background: var(--correct-bg); }
+.option.wrong-answer     { border-color: var(--wrong); background: var(--wrong-bg); }
+
+.q-textarea {
+  width: 100%; min-height: 56px; border: 1px solid var(--card-border);
+  border-radius: 4px; padding: 6px 10px; font-family: inherit;
+  font-size: 0.93em; background: #fefcf5; resize: vertical;
+}
+.q-textarea:focus { outline: none; border-color: var(--accent); }
+
+.badge-partial { background: #fef3c7; color: #92400e; }
+.q-card.partial { border-color: #f59e0b; }
+
+.result {
+  display: none; margin-top: 8px; padding: 8px 12px;
+  background: #fefcf5; border: 1px solid var(--card-border);
+  border-radius: 4px; font-size: 0.9em; line-height: 1.6;
+}
+.result .badge {
+  display: inline-block; padding: 1px 9px; border-radius: 3px;
+  font-weight: 700; font-size: 0.82em; margin-right: 6px;
+}
+.badge-ok  { background: var(--correct-bg); color: #166534; }
+.badge-no  { background: var(--wrong-bg); color: #991b1b; }
+.badge-ref { background: #dbeafe; color: #1e40af; }
+
+.result .explanation { margin-top: 4px; color: var(--ink); }
+.result .pitfall { color: #b45309; margin-top: 3px; font-size: 0.9em; }
+
+.grading-bar { text-align: center; margin: 20px 0; }
+.grading-bar button {
+  font-size: 1em; padding: 8px 32px; background: var(--accent);
+  color: #fff; border: none; border-radius: var(--radius);
+  cursor: pointer; font-weight: 600; letter-spacing: 0.3px;
+}
+.grading-bar button:hover     { background: var(--accent-hover); }
+.grading-bar button:disabled  { background: #bbb; cursor: not-allowed; }
+
+.fill-input {
+  display: inline-block; width: 140px; padding: 3px 8px;
+  border: 1px solid var(--card-border); border-radius: 4px;
+  font-family: inherit; font-size: 0.93em; background: #fefcf5;
+  margin: 2px 4px;
+}
+.fill-input:focus { outline: none; border-color: var(--accent); }
+.fill-input.fill-ok  { border-color: var(--correct); background: var(--correct-bg); }
+.fill-input.fill-no  { border-color: var(--wrong); background: var(--wrong-bg); }
+
+.source-note {
+  background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 8px;
+  padding: 12px 16px; margin-bottom: 20px; font-size: 0.9em; color: #1e40af;
+}
+</style>
+</head>
+<body>
+
+<header id="exampass-header">
+  <div class="header-left"><span class="header-brand">ExamPass Assistant</span></div>
+  <div class="header-right"><span class="header-url">github.com/WUBING2023/ExamPass-Assistant</span></div>
+</header>
+<hr class="header-divider">
+
+<h1>四川大学计算机网络 · 真题模拟卷一</h1>
+<h2 style="text-align:center;color:#2563eb">基础概念型</h2>
+<p style="text-align:center;color:var(--ink-light);font-size:0.95em">满分 100 分 | 建议 120 分钟 | 参照川大近年真题风格编写</p>
+
+<div class="source-note">
+  📚 <strong>命题说明：</strong>本卷参照四川大学计算机网络近年期末考试真题风格编写，涵盖 2016 级林锋/杨频/王海舟试卷、2021-2022 网安学院试卷、2014 级软件工程试卷等典型题型。侧重于基础概念、协议原理和网络体系结构的考察。
+</div>
+
+<div id="score-box"><div class="score-num" id="score-num">0</div><div class="score-label">总分</div></div>
+<div id="questions-container"></div>
+<div class="grading-bar no-print"><button onclick="gradeAll()" id="grade-btn">提交批改</button></div>
+
+<script>
+var Q = [
+  {"type": "choice", "points": 2, "question": "OSI 模型中哪一层被设计用于执行差错检测功能？", "options": ["A. 物理层", "B. 数据链路层", "C. 网络层", "D. 传输层"], "answer": 1, "explanation": "数据链路层的主要设计目的之一是介质访问控制（MAC）和差错检测。虽然传输层、网络层也有差错检测，但数据链路层将其作为核心功能。"},
+  {"type": "choice", "points": 2, "question": "下列关于 OSI 模型和 TCP/IP 模型的描述，正确的是：", "options": ["A. OSI 模型共有七层，TCP/IP 模型共有四层", "B. OSI 模型的数据链路层对应 TCP/IP 的网络接口层和网络层", "C. TCP/IP 模型的应用层对应 OSI 的应用层和表示层", "D. OSI 模型和 TCP/IP 模型层次完全一一对应"], "answer": 0, "explanation": "OSI 七层：物理→数据链路→网络→传输→会话→表示→应用。TCP/IP 四层：网络接口→网际→运输→应用。TCP/IP 的应用层对应 OSI 的应用层+表示层+会话层。"},
+  {"type": "choice", "points": 2, "question": "根据主机目标地址转发数据包的网络被称为______网络。", "options": ["A. 分组交换", "B. 电路交换", "C. 报文交换", "D. 虚电路"], "answer": 0, "explanation": "电路交换独享链路资源；分组交换共享链路，按需占用，所有分组交换都使用主机目标地址发包。虚电路和数据报是分组交换的两种形式。"},
+  {"type": "choice", "points": 2, "question": "各层的协议被称为______。", "options": ["A. 协议组", "B. 协议集", "C. 协议族", "D. 协议栈"], "answer": 3, "explanation": "协议栈（Protocol Stack）指各层协议按照层次关系组成的栈式结构。"},
+  {"type": "choice", "points": 2, "question": "HTTP/1.1 的默认持久连接模型是：", "options": ["A. 非持久连接", "B. 不带流水线的持久连接", "C. 带流水线的持久连接", "D. 无连接"], "answer": 2, "explanation": "HTTP/1.1 默认使用带流水线（pipelining）的持久连接，可以连续发送多个请求而不用等待每个响应。"},
+  {"type": "choice", "points": 2, "question": "以下应用中，哪个是容忍丢包的应用？", "options": ["A. 文件传输", "B. 电子邮件", "C. Web 浏览", "D. 实时音频"], "answer": 3, "explanation": "实时音频（如微信语音通话）可以容忍少量丢包，但要求低时延。文件传输、邮件、Web 浏览则需要完全可靠的数据传输。"},
+  {"type": "choice", "points": 2, "question": "在______解析中，DNS 服务器返回它认为能够解析查询的服务器的 IP 地址。", "options": ["A. 迭代", "B. 递归", "C. 转发", "D. 反向"], "answer": 0, "explanation": "迭代查询：DNS 服务器返回下一级 DNS 服务器的 IP 地址，客户端需要主动逐次查询。递归查询：服务器替客户端完成全部查询并返回最终结果。"},
+  {"type": "choice", "points": 2, "question": "SMTP 可以直接传输而不需要转换的内容是：", "options": ["A. 图片", "B. 视频", "C. 二进制文件", "D. ASCII 文本"], "answer": 3, "explanation": "SMTP 最初为传输纯 ASCII 文本设计。图片、视频等非文本格式需经 MIME Base64 编码转换后才能通过 SMTP 传输。"},
+  {"type": "choice", "points": 2, "question": "Socket 是主机内______之间的接口。", "options": ["A. 网络层和传输层", "B. 数据链路层和网络层", "C. 应用层和传输层", "D. 物理层和数据链路层"], "answer": 2, "explanation": "Socket（套接字）是应用层与传输层之间的编程接口，应用程序通过 Socket 使用 TCP/UDP 服务。"},
+  {"type": "choice", "points": 2, "question": "ARP 协议的主要功能是：", "options": ["A. 将 IP 地址解析为物理地址", "B. 将物理地址解析为 IP 地址", "C. 将主机域名解析为 IP 地址", "D. 将 IP 地址解析为主机域名"], "answer": 0, "explanation": "ARP（地址解析协议）将 IP 地址解析为 MAC 地址。RARP 做反向解析，DNS 做域名解析。"},
+  {"type": "choice", "points": 2, "question": "FTP 协议服务器端默认监听哪个端口？", "options": ["A. 8080", "B. 80", "C. 25", "D. 21"], "answer": 3, "explanation": "FTP 控制连接端口 21，数据连接端口 20。HTTP 端口 80，SMTP 端口 25，HTTPS 端口 443。"},
+  {"type": "choice", "points": 2, "question": "以下设备中，属于数据链路层的是：", "options": ["A. 中继器", "B. 集线器", "C. 交换机", "D. 路由器"], "answer": 2, "explanation": "中继器和集线器工作在物理层，交换机工作在数据链路层（根据 MAC 地址转发），路由器工作在网络层。"},
+  {"type": "choice", "points": 2, "question": "术语 10Base5 中的"5"表示：", "options": ["A. 使用 50Ω 阻抗的细缆", "B. 最大传输距离 50 米", "C. 最大传输距离 500 米的粗缆", "D. 使用五类双绞线"], "answer": 2, "explanation": "10Base5：10Mbps 速率，基带传输，最大网段长度 500 米。10Base2 中的"2"表示 185 米（约 200 米），10BaseT 中的"T"表示双绞线。"},
+  {"type": "choice", "points": 2, "question": "在 TCP 中，发送报文段中确认字段的值定义了与一方期望接收的下一个______字节相关的序列号。", "options": ["A. 上一个", "B. 当前", "C. 下一个", "D. 任意"], "answer": 2, "explanation": "ACK 号表示已成功接收该序号之前的所有数据，期望接收的下一个字节的序列号。"},
+  {"type": "choice", "points": 2, "question": "在 TCP 的______阶段，拥塞窗口的大小线性增加。", "options": ["A. 拥塞避免", "B. 慢启动", "C. 快重传", "D. 快恢复"], "answer": 0, "explanation": "慢启动阶段是指数增长（每 RTT 翻倍），拥塞避免阶段是线性增长（每 RTT +1 MSS）。"},
+  {"type": "choice", "points": 2, "question": "MSS 通常是通过首先确定本地发送主机可以发送的最大链路层帧的长度（即______）来设置的。", "options": ["A. MTBF", "B. MSL", "C. MTU", "D. MFS"], "answer": 2, "explanation": "MTU（最大传输单元）是链路层帧的数据字段最大长度。MSS = MTU - IP 头 - TCP 头，通常为 1460 字节（以太网 MTU=1500）。"},
+  {"type": "choice", "points": 2, "question": "当一个 UDP 报文段到达主机时，为了将该报文段定向到适当的套接字，操作系统使用______。", "options": ["A. 源端口号", "B. 源 IP 地址", "C. 目标端口号", "D. 校验和"], "answer": 2, "explanation": "UDP 使用目标端口号将报文段交付给正确的应用进程。"},
+  {"type": "choice", "points": 2, "question": "______允许一个站点使用一组私有地址进行内部通信，并使用一组全球互联网地址与外部通信。", "options": ["A. DHCP", "B. NAT", "C. ARP", "D. DNS"], "answer": 1, "explanation": "NAT（网络地址转换）将内部私有 IP 地址映射为外部公有 IP 地址，实现内外网通信。"},
+  {"type": "choice", "points": 2, "question": "以下哪一组属于网络层协议？", "options": ["A. TCP 和 UDP", "B. HTTP 和 FTP", "C. ARP 和 DNS", "D. ICMP、BGP 和 RIP"], "answer": 3, "explanation": "ICMP（控制报文）、BGP（边界网关协议）、RIP（路由信息协议）均为网络层协议。TCP/UDP 是传输层，HTTP/FTP 是应用层，ARP 是链路层。"},
+  {"type": "choice", "points": 2, "question": "RIP 协议使用______的服务。", "options": ["A. TCP", "B. IP", "C. UDP", "D. ICMP"], "answer": 2, "explanation": "RIP 使用距离向量算法，定期广播路由更新，对实时性要求高但不要求可靠传输，故使用 UDP（端口 520）。OSPF 直接使用 IP，BGP 使用 TCP。"},
+  {"type": "choice", "points": 2, "question": "与 IP 地址 185.27.48.59/25 的节点对应的受限广播地址是什么？", "options": ["A. 185.27.48.255", "B. 185.27.48.127", "C. 255.255.255.255", "D. 185.255.255.255"], "answer": 2, "explanation": "受限广播地址固定为 255.255.255.255，不依赖子网掩码，仅在本地网段广播，路由器不转发。直接广播地址才与子网相关。"},
+  {"type": "choice", "points": 2, "question": "在______中，每个站点只要有帧要发送就会立即发送。", "options": ["A. ALOHA", "B. 时隙 ALOHA", "C. CSMA", "D. CSMA/CD"], "answer": 0, "explanation": "纯 ALOHA 想发就发，时隙 ALOHA 需在特定时隙内发送，CSMA 系列协议需要先侦听信道。"},
+  {"type": "choice", "points": 2, "question": "当多个节点共享单个广播链路时，______协议用于协调众多节点的帧传输。", "options": ["A. ARP", "B. MAC", "C. IP", "D. TCP"], "answer": 1, "explanation": "MAC（Media Access Control，介质访问控制）协议用于协调多个节点对共享广播链路的访问。注意这里 MAC 指协议而非 MAC 地址。"},
+  {"type": "choice", "points": 2, "question": "假设一个主机 IP 地址为 136.168.215.120，子网掩码为 255.255.128.0，该主机的子网号是：", "options": ["A. 0", "B. 128", "C. 192", "D. 215"], "answer": 1, "explanation": "子网掩码 255.255.128.0 → /17。IP 第 3 字节 215=11010111，取前 1 位得 1 → 子网号 128。"},
+  {"type": "choice", "points": 2, "question": "数据包从源站经过若干路由器到目的站，目的 IP 地址发生什么变化？", "options": ["A. 每跳变为下一路由器入口地址", "B. 被第一个路由器改变后不变", "C. 全程不发生变化", "D. 每跳随机改变"], "answer": 2, "explanation": "IP 数据包在传输过程中源 IP 和目的 IP 地址都不改变（NAT 情况除外）。MAC 地址每跳改变。"},
+
+  {"type": "tf", "points": 1, "question": "互联网协议栈的第四层和第五层（传输层和应用层）在终端系统中实现，但不在网络核心的路由器中实现。", "answer": 0, "explanation": "正确。路由器最高只用到网络层（第三层），传输层和应用层只在端系统中实现。"},
+  {"type": "tf", "points": 1, "question": "考虑一条传输速率为 R 的链路前的队列。假设包每隔 1/a 秒周期到达，包长均为 L。若 aL < R，则排队时延应该很小且有界。", "answer": 0, "explanation": "正确。包到达速度（aL）小于传输速度（R），队列压力小，排队时间短且有上界。"},
+  {"type": "tf", "points": 1, "question": "Tracert 程序可以向任何 DNS 服务器发送 DNS 查询并显示回复中的记录。", "answer": 1, "explanation": "错误。Tracert 通过 TTL 进行路由追踪，与 DNS 无关。此功能属于 nslookup 命令。"},
+  {"type": "tf", "points": 1, "question": "邮件客户端无法通过 HTTP（而非 SMTP）发送电子邮件。", "answer": 1, "explanation": "错误。使用网页版邮箱（浏览器访问）发送邮件时，客户端到邮件服务器之间使用 HTTP 协议。"},
+  {"type": "tf", "points": 1, "question": "网络中"尽力而为"服务与 TCP 提供的"可靠"服务含义相同。", "answer": 1, "explanation": "错误。"尽力而为"是 IP 网络层提供的服务，不保证可靠数据传输。TCP 通过确认、重传等机制在不可靠的 IP 之上提供可靠传输。"},
+  {"type": "tf", "points": 1, "question": "在 GBN（回退 N 步）协议中，接收方收到失序数据包时会将其丢弃，并为最近收到的按序数据包重新发送 ACK。", "answer": 0, "explanation": "正确。GBN 采用累积确认，接收方只接受按序到达的包，失序包直接丢弃。"},
+  {"type": "tf", "points": 1, "question": "如果某些路由器的路由表存在错误，IPv4 中的数据包可能会永远循环。", "answer": 1, "explanation": "错误。IPv4 数据包头部有 TTL（生存时间）字段，每经过一个路由器 TTL 减 1，减到 0 时丢弃，防止无限循环。"},
+  {"type": "tf", "points": 1, "question": "在距离向量路由中，如果减小一条链路的代价，会发生无穷计数问题。", "answer": 1, "explanation": "错误。无穷计数问题发生在链路代价增大时（"坏消息传得慢"）。链路代价减小时（"好消息"）收敛很快。"},
+  {"type": "tf", "points": 1, "question": "在 CSMA/CD 网络中，要求传输时间大于 2 倍传播时间，以便发送方在传输完成前能检测到碰撞。", "answer": 0, "explanation": "正确。最坏情况：数据到达接收方前一刻发生碰撞，碰撞信号返回发送方需要 Tprop，总共 2×Tprop。发送方必须在帧发送完之前收到碰撞信号。"},
+  {"type": "tf", "points": 1, "question": "交换机的转发表是自动、动态、自主建立的，这种能力称为自学习。因此交换机是即插即用设备。", "answer": 0, "explanation": "正确。交换机通过自学习算法自动建立 MAC 地址表，无需人工配置，属于即插即用设备。"},
+
+  {"type": "fill", "points": 2, "question": "网络协议的三要素是：____、____、____。", "answer": ["语法", "语义", "同步"]},
+  {"type": "fill", "points": 2, "question": "五层协议体系结构从下往上依次是：____、____、____、____、____。", "answer": ["物理层", "数据链路层", "网络层", "运输层", "应用层"]},
+  {"type": "fill", "points": 2, "question": "OSI 七层模型从上往下：应用层、____、会话层、运输层、网络层、____、物理层。", "answer": ["表示层", "数据链路层"]},
+  {"type": "fill", "points": 2, "question": "SMTP 端口____，POP3 端口____，DNS 端口____，HTTP 端口____。", "answer": ["25", "110", "53", "80"]},
+  {"type": "fill", "points": 2, "question": "数据链路层的三个基本问题是：____、____、____。", "answer": ["封装成帧", "透明传输", "差错检测"]},
+  {"type": "fill", "points": 2, "question": "以太网的最短帧长是____字节，MAC 地址长度为____位（____字节）。", "answer": ["64", "48", "6"]},
+  {"type": "fill", "points": 2, "question": "TCP 拥塞控制的四种算法：____、____、____、____。", "answer": ["慢开始", "拥塞避免", "快重传", "快恢复"]},
+  {"type": "fill", "points": 2, "question": "DHCP 协议获取 IP 地址的四个步骤（按顺序）：____ → ____ → ____ → ____。", "answer": ["发现", "提供", "请求", "确认"]},
+
+  {"type": "short", "points": 6, "question": "简述 TCP/IP 模型的四层结构及各层的主要功能。", "answer": -1, "explanation": "<strong>网络接口层</strong>（对应 OSI 物理层+数据链路层）：负责物理传输、封装成帧、差错检测。<br><strong>网际层</strong>（对应 OSI 网络层）：IP 编址、路由选择、分组转发。核心协议：IP、ICMP、ARP。<br><strong>运输层</strong>（对应 OSI 传输层）：端到端通信、复用与分用。核心协议：TCP（可靠）、UDP（不可靠）。<br><strong>应用层</strong>（对应 OSI 应用层+表示层+会话层）：直接为用户应用提供服务。核心协议：HTTP、DNS、SMTP、FTP。"},
+  {"type": "short", "points": 6, "question": "简述 TCP 三次握手的过程及其目的。", "answer": -1, "explanation": "<strong>过程：</strong><br>① 客户端→服务器：SYN=1, seq=x（请求连接）<br>② 服务器→客户端：SYN=1, ACK=1, seq=y, ack=x+1（确认请求+反向请求）<br>③ 客户端→服务器：ACK=1, seq=x+1, ack=y+1（确认反向请求）<br><br><strong>为什么是三次（不是两次）：</strong>防止已失效的连接请求报文段突然传到服务器而产生错误——如果只有两次握手，服务器收到一个已过期的 SYN 后就会单方面建立连接并分配资源，但客户端其实不想连接，造成服务器资源浪费。"},
+  {"type": "short", "points": 6, "question": "解释什么是 IP 地址，并简述 IPv4 地址的 A、B、C 类分类方式。", "answer": -1, "explanation": "<strong>IP 地址：</strong>为互联网上每个主机（或路由器接口）分配的唯一 32 位标识符，用于 IP 网络中的寻址和定位。通常用点分十进制表示（如 192.168.1.1）。<br><br><strong>分类：</strong><br>A 类（0.0.0.0~127.255.255.255）：网络号 8 位（首位 0），主机号 24 位。默认掩码 /8。<br>B 类（128.0.0.0~191.255.255.255）：网络号 16 位（前 2 位 10），主机号 16 位。默认掩码 /16。<br>C 类（192.0.0.0~223.255.255.255）：网络号 24 位（前 3 位 110），主机号 8 位。默认掩码 /24。"},
+  {"type": "short", "points": 6, "question": "说明 CSMA/CD 介质访问控制方法的基本原理。", "answer": -1, "explanation": "<strong>CSMA/CD（载波监听多点接入/碰撞检测）</strong>：<br>(1) 先听后发：发送前监听信道，若忙则等待。<br>(2) 边发边听：发送时同时监听信道。<br>(3) 冲突停发：若检测到碰撞，立即停止发送，并发送 Jam（人为干扰）信号。<br>(4) 随机重发：采用二进制指数退避算法，随机等待一段时间后重新尝试。<br>(5) 重发 16 次仍失败则丢弃帧。"}
+];
+
+var LABELS = {"page_title": "章节测试", "section": {"choice": "一、选择题（每题2分，共50分）", "tf": "二、判断题（每题1分，共10分）", "fill": "三、填空题（每空2分，共16分）", "short": "四、简答题（每题6分，共24分）"}, "section_order": ["choice", "tf", "fill", "short"], "points_suffix": "分", "true_label": "正确", "false_label": "错误", "placeholder": "在此作答...", "pitfall_prefix": "易错提醒：", "correct_label": "正确", "wrong_label": "错误", "partial_label": "部分正确", "answer_prefix": "正确答案：", "reference_label": "参考答案", "graded_label": "已批改", "grade_button": "提交批改", "score_label": "总分", "duration_prefix": "满分 100 分 | 建议 ", "duration_suffix": " 分钟 | 选择答案后点击提交批改"};
+
+// ─── Answer normalization ───
+function tfAnswerIndex(ans) {
+  if (typeof ans === 'boolean') return ans ? 0 : 1;
+  if (typeof ans === 'number') return ans === 0 ? 0 : 1;
+  var s = ('' + ans).trim().toLowerCase();
+  var truthy = ['0', 't', 'true', '正确', '对', '是', 'yes', 'y', '√', '✓'];
+  var falsy  = ['1', 'f', 'false', '错误', '错', '否', 'no', 'n', '×', 'x'];
+  if (truthy.indexOf(s) !== -1) return 0;
+  if (falsy.indexOf(s) !== -1) return 1;
+  return ans ? 0 : 1;
+}
+
+function choiceAnswerIndex(ans, options) {
+  if (typeof ans === 'number') return ans;
+  var s = ('' + ans).trim();
+  if (/^[A-Za-z]$/.test(s)) return s.toUpperCase().charCodeAt(0) - 65;
+  if (/^\d+$/.test(s)) return parseInt(s, 10);
+  if (options) {
+    for (var i = 0; i < options.length; i++) {
+      if (('' + options[i]).trim() === s) return i;
+    }
+  }
+  return parseInt(s, 10);
+}
+
+function normText(s) {
+  s = ('' + s).trim().toLowerCase();
+  s = s.replace(/[\s　]+/g, '');
+  s = s.replace(/[.,;:!?。，、；：！？“”"'（）()【】\[\]<>《》]/g, '');
+  s = s.replace(/[！-～]/g, function (c) { return String.fromCharCode(c.charCodeAt(0) - 0xfee0); });
+  return s;
+}
+
+function fillBlankCount(question) {
+  var m = ('' + question).match(/(_{2,}|＿+)/g);
+  return m ? m.length : 0;
+}
+
+function fillBlankAnswers(ans, nBlanks) {
+  if (nBlanks < 1) nBlanks = 1;
+  if (!Array.isArray(ans)) return padBlanks([[ans]], nBlanks);
+  if (ans.length && Array.isArray(ans[0])) return padBlanks(ans, nBlanks);
+  if (nBlanks === 1) return [ans];
+  if (ans.length === nBlanks) { return ans.map(function (a) { return [a]; }); }
+  return padBlanks([ans], nBlanks);
+}
+
+function padBlanks(arr, n) {
+  var out = arr.slice(0, n);
+  while (out.length < n) out.push(['']);
+  return out;
+}
+
+function build() {
+  var container = document.getElementById('questions-container');
+  if (!container) return;
+  var order = LABELS.section_order || [];
+  Q.forEach(function (q, i) { q._i = i; });
+  Q.sort(function (a, b) {
+    var oa = order.indexOf(a.type); if (oa === -1) oa = 99;
+    var ob = order.indexOf(b.type); if (ob === -1) ob = 99;
+    return oa - ob || a._i - b._i;
+  });
+  var h = '';
+  var sec = '';
+  var titles = LABELS.section;
+  for (var i = 0; i < Q.length; i++) {
+    var q = Q[i];
+    if (q.type !== sec) { sec = q.type; if (titles[q.type]) h += '<h3>' + titles[q.type] + '</h3>'; }
+    var qid = 'q' + i;
+    h += '<div class="q-card" id="card-' + qid + '">';
+    h += '<div class="q-num">' + (i + 1) + '. (' + q.points + ' ' + LABELS.points_suffix + ')</div>';
+    if (q.type === 'fill') {
+      h += '<div class="q-text">' + renderFill(q, qid) + '</div>';
+    } else {
+      h += '<div class="q-text">' + q.question + '</div>';
+    }
+    if (q.type === 'choice') {
+      var opts = q.options || [];
+      for (var j = 0; j < opts.length; j++) {
+        h += '<label class="option" id="opt-' + qid + '-' + j + '" onclick="sel(\'' + qid + '\',' + j + ')">';
+        h += '<input type="radio" name="' + qid + '" value="' + j + '">' + opts[j] + '</label>';
+      }
+    } else if (q.type === 'tf') {
+      h += '<label class="option" id="opt-' + qid + '-0" onclick="sel(\'' + qid + '\',0)">';
+      h += '<input type="radio" name="' + qid + '" value="0">' + LABELS.true_label + '</label>';
+      h += '<label class="option" id="opt-' + qid + '-1" onclick="sel(\'' + qid + '\',1)">';
+      h += '<input type="radio" name="' + qid + '" value="1">' + LABELS.false_label + '</label>';
+    } else if (q.type === 'fill') {
+      // already rendered
+    } else {
+      h += '<textarea class="q-textarea" id="text-' + qid + '" placeholder="' + LABELS.placeholder + '" rows="3"></textarea>';
+    }
+    h += '<div class="result" id="result-' + qid + '">';
+    h += '<span class="badge" id="badge-' + qid + '"></span><span id="correct-' + qid + '"></span>';
+    h += '<div class="explanation">' + (q.explanation || '') + '</div>';
+    h += '</div></div>';
+  }
+  container.innerHTML = h;
+  if (window.MathJax && MathJax.typesetPromise) { MathJax.typesetPromise([container]).catch(function (err) { console.error(err); }); }
+}
+
+function renderFill(q, qid) {
+  var nBlanks = fillBlankCount(q.question);
+  var k = 0;
+  var html = ('' + q.question).replace(/(_{2,}|＿+)/g, function () {
+    var inp = '<input type="text" class="fill-input" id="fill-' + qid + '-' + k + '" autocomplete="off" spellcheck="false">';
+    k++;
+    return inp;
+  });
+  return html;
+}
+
+document.addEventListener('DOMContentLoaded', build);
+if (document.readyState === 'interactive' || document.readyState === 'complete') { build(); }
+
+function sel(qid, idx) {
+  var prefix = 'opt-' + qid + '-';
+  var all = document.querySelectorAll('[id^="' + prefix + '"]');
+  for (var i = 0; i < all.length; i++) all[i].classList.remove('selected');
+  var target = document.getElementById('opt-' + qid + '-' + idx);
+  if (target) target.classList.add('selected');
+  var radio = document.querySelector('input[name="' + qid + '"][value="' + idx + '"]');
+  if (radio) radio.checked = true;
+}
+
+function gradeAll() {
+  var score = 0;
+  for (var i = 0; i < Q.length; i++) {
+    var q = Q[i];
+    var qid = 'q' + i;
+    var card = document.getElementById('card-' + qid);
+    var result = document.getElementById('result-' + qid);
+    var badge = document.getElementById('badge-' + qid);
+    var correctEl = document.getElementById('correct-' + qid);
+    if (!card || !result) continue;
+    result.style.display = 'block';
+    if (q.type === 'choice' || q.type === 'tf') {
+      score += gradeSingle(q, qid, card, badge, correctEl);
+    } else if (q.type === 'fill') {
+      score += gradeFill(q, qid, card, badge, correctEl);
+    } else {
+      card.classList.add('correct');
+      badge.className = 'badge badge-ref';
+      badge.textContent = LABELS.reference_label;
+    }
+  }
+  var sb = document.getElementById('score-box');
+  if (sb) {
+    sb.style.display = 'block';
+    document.getElementById('score-num').textContent = roundScore(score);
+    sb.scrollIntoView({ behavior: 'smooth' });
+  }
+  var opts = document.querySelectorAll('.option');
+  for (var a = 0; a < opts.length; a++) opts[a].style.pointerEvents = 'none';
+  var tas = document.querySelectorAll('.q-textarea');
+  for (var b = 0; b < tas.length; b++) tas[b].disabled = true;
+  var fis = document.querySelectorAll('.fill-input');
+  for (var c = 0; c < fis.length; c++) fis[c].disabled = true;
+  var btn = document.getElementById('grade-btn');
+  if (btn) { btn.disabled = true; btn.textContent = LABELS.graded_label; }
+}
+
+function roundScore(s) { return Math.round(s * 10) / 10; }
+
+function gradeSingle(q, qid, card, badge, correctEl) {
+  var ansIdx = q.type === 'tf' ? tfAnswerIndex(q.answer) : choiceAnswerIndex(q.answer, q.options);
+  var radio = document.querySelector('input[name="' + qid + '"]:checked');
+  if (radio && parseInt(radio.value, 10) === ansIdx) {
+    card.classList.add('correct');
+    badge.className = 'badge badge-ok';
+    badge.textContent = LABELS.correct_label;
+    correctEl.innerHTML = '';
+    var ok = document.getElementById('opt-' + qid + '-' + ansIdx);
+    if (ok) ok.classList.add('correct-answer');
+    return q.points;
+  }
+  card.classList.add('wrong');
+  badge.className = 'badge badge-no';
+  badge.textContent = LABELS.wrong_label;
+  var ansText = q.type === 'choice'
+    ? String.fromCharCode(65 + ansIdx) + '. ' + (q.options ? q.options[ansIdx] : '')
+    : (ansIdx === 0 ? LABELS.true_label : LABELS.false_label);
+  correctEl.innerHTML = LABELS.answer_prefix + ansText;
+  if (radio) {
+    var wrongOpt = document.getElementById('opt-' + qid + '-' + radio.value);
+    if (wrongOpt) wrongOpt.classList.add('wrong-answer');
+  }
+  var corr = document.getElementById('opt-' + qid + '-' + ansIdx);
+  if (corr) corr.classList.add('correct-answer');
+  return 0;
+}
+
+function gradeFill(q, qid, card, badge, correctEl) {
+  var nBlanks = fillBlankCount(q.question);
+  var blanks = fillBlankAnswers(q.answer, nBlanks);
+  var n = blanks.length;
+  var hit = 0;
+  var displays = [];
+  for (var b = 0; b < n; b++) {
+    var inp = document.getElementById('fill-' + qid + '-' + b);
+    var accepted = blanks[b] || [''];
+    var user = inp ? normText(inp.value) : '';
+    var ok = false;
+    for (var a = 0; a < accepted.length; a++) {
+      if (accepted[a] !== '' && normText(accepted[a]) === user && user !== '') { ok = true; break; }
+    }
+    if (inp) inp.classList.add(ok ? 'fill-ok' : 'fill-no');
+    if (ok) hit++;
+    displays.push((n > 1 ? (b + 1) + '. ' : '') + accepted.filter(function (x) { return x !== ''; }).join(' / '));
+  }
+  var earned = roundScore(q.points * hit / n);
+  correctEl.innerHTML = LABELS.answer_prefix + displays.join('   ');
+  if (hit === n) {
+    card.classList.add('correct');
+    badge.className = 'badge badge-ok';
+    badge.textContent = LABELS.correct_label;
+  } else if (hit > 0) {
+    card.classList.add('partial');
+    badge.className = 'badge badge-partial';
+    badge.textContent = LABELS.partial_label;
+  } else {
+    card.classList.add('wrong');
+    badge.className = 'badge badge-no';
+    badge.textContent = LABELS.wrong_label;
+  }
+  return earned;
+}
+</script>
+</body>
+</html>
