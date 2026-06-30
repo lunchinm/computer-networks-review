@@ -170,12 +170,12 @@ var Q = [
   {"type": "tf", "points": 1, "question": "香农公式表明：信道带宽越大、信噪比越高，极限传输速率越高。", "answer": 0},
   {"type": "tf", "points": 1, "question": "CRC 校验码能检测出所有奇数个错误。", "answer": 0, "explanation": "CRC 的检错能力取决于生成多项式。使用特定的生成多项式可以检测所有单比特错误、双比特错误、奇数个错误和突发错误。"},
   {"type": "tf", "points": 1, "question": "CIDR 使用最长前缀匹配原则进行路由选择。", "answer": 0},
-  {"type": "tf", "points": 1, "question": "在距离向量路由中，减小链路代价会导致无穷计数问题。", "answer": 1, "explanation": "无穷计数问题发生在链路代价增大时（"坏消息传得慢"），链路代价减小时收敛很快。"},
+  {"type": "tf", "points": 1, "question": "在距离向量路由中，减小链路代价会导致无穷计数问题。", "answer": 1, "explanation": "无穷计数问题发生在链路代价增大时（“坏消息传得慢”），链路代价减小时收敛很快。"},
   {"type": "tf", "points": 1, "question": "TCP 的超时重传时间 RTO 应小于 RTT，以快速响应丢包。", "answer": 1, "explanation": "RTO 应略大于 RTT（通常 RTO=RTTs+4×RTTd），否则会导致不必要的重传。"},
   {"type": "tf", "points": 1, "question": "一个 IP 数据报在分片后，各分片的标识字段不同。", "answer": 1, "explanation": "同一数据报的所有分片标识字段相同，以便目的主机重组。"},
   {"type": "tf", "points": 1, "question": "UDP 校验和覆盖 UDP 首部、数据以及伪首部。", "answer": 0},
   {"type": "tf", "points": 1, "question": "以太网交换机收到未知目的 MAC 地址的帧时会将其丢弃。", "answer": 1, "explanation": "交换机会向除接收端口外的所有端口泛洪（flood）该帧。"},
-  {"type": "tf", "points": 1, "question": "IPv6 不再支持数据包分片功能，分片只在源节点进行。", "answer": 0, "explanation": "IPv6 路由器不进行分片，分片只能在源节点进行。如果数据包过大，路由器发送 ICMPv6 "Packet Too Big" 消息。"},
+  {"type": "tf", "points": 1, "question": "IPv6 不再支持数据包分片功能，分片只在源节点进行。", "answer": 0, "explanation": "IPv6 路由器不进行分片，分片只能在源节点进行。如果数据包过大，路由器发送 ICMPv6 “Packet Too Big” 消息。"},
 
   {"type": "fill", "points": 2, "question": "香农公式：$C = W \\log_2(1 + \\frac{S}{N})$，其中 $S/N$ 为____，单位通常是____。30dB 对应的 $S/N$ 值为____。", "answer": ["信噪比", "dB", "1000"]},
   {"type": "fill", "points": 2, "question": "奈氏准则：理想低通信道最大码元速率 = ____，其中 $W$ 为带宽（Hz）。若采用 $V$ 种离散电平，最大数据率 = ____。", "answer": ["2W", "2Wlog₂V"]},
@@ -245,23 +245,23 @@ function build() {
     var q = Q[i];
     if (q.type !== sec) { sec = q.type; if (titles[q.type]) h += '<h3>' + titles[q.type] + '</h3>'; }
     var qid = 'q' + i;
-    h += '<div class="q-card" id="card-' + qid + '">';
-    h += '<div class="q-num">' + (i + 1) + '. (' + q.points + ' ' + LABELS.points_suffix + ')</div>';
-    if (q.type === 'fill') { h += '<div class="q-text">' + renderFill(q, qid) + '</div>'; }
-    else { h += '<div class="q-text">' + q.question + '</div>'; }
+    h += '<div class=“q-card” id=“card-' + qid + '”>';
+    h += '<div class=“q-num”>' + (i + 1) + '. (' + q.points + ' ' + LABELS.points_suffix + ')</div>';
+    if (q.type === 'fill') { h += '<div class=“q-text”>' + renderFill(q, qid) + '</div>'; }
+    else { h += '<div class=“q-text”>' + q.question + '</div>'; }
     if (q.type === 'choice') {
       var opts = q.options || [];
       for (var j = 0; j < opts.length; j++) {
-        h += '<label class="option" id="opt-' + qid + '-' + j + '" onclick="sel(\'' + qid + '\',' + j + ')">';
-        h += '<input type="radio" name="' + qid + '" value="' + j + '">' + opts[j] + '</label>';
+        h += '<label class=“option” id=“opt-' + qid + '-' + j + '” onclick=“sel(\'' + qid + '\',' + j + ')”>';
+        h += '<input type=“radio” name=“' + qid + '” value=“' + j + '”>' + opts[j] + '</label>';
       }
     } else if (q.type === 'tf') {
-      h += '<label class="option" id="opt-' + qid + '-0" onclick="sel(\'' + qid + '\',0)"><input type="radio" name="' + qid + '" value="0">' + LABELS.true_label + '</label>';
-      h += '<label class="option" id="opt-' + qid + '-1" onclick="sel(\'' + qid + '\',1)"><input type="radio" name="' + qid + '" value="1">' + LABELS.false_label + '</label>';
+      h += '<label class=“option” id=“opt-' + qid + '-0” onclick=“sel(\'' + qid + '\',0)”><input type=“radio” name=“' + qid + '” value=“0”>' + LABELS.true_label + '</label>';
+      h += '<label class=“option” id=“opt-' + qid + '-1” onclick=“sel(\'' + qid + '\',1)”><input type=“radio” name=“' + qid + '” value=“1”>' + LABELS.false_label + '</label>';
     } else if (q.type === 'fill') { /* already rendered */ }
-    else { h += '<textarea class="q-textarea" id="text-' + qid + '" placeholder="' + LABELS.placeholder + '" rows="4"></textarea>'; }
-    h += '<div class="result" id="result-' + qid + '"><span class="badge" id="badge-' + qid + '"></span><span id="correct-' + qid + '"></span>';
-    h += '<div class="explanation">' + (q.explanation || '') + '</div></div></div>';
+    else { h += '<textarea class=“q-textarea” id=“text-' + qid + '” placeholder=“' + LABELS.placeholder + '” rows=“4”></textarea>'; }
+    h += '<div class=“result” id=“result-' + qid + '”><span class=“badge” id=“badge-' + qid + '”></span><span id=“correct-' + qid + '”></span>';
+    h += '<div class=“explanation”>' + (q.explanation || '') + '</div></div></div>';
   }
   container.innerHTML = h;
   if (window.MathJax && MathJax.typesetPromise) { MathJax.typesetPromise([container]).catch(function (err) { console.error(err); }); }
@@ -270,7 +270,7 @@ function build() {
 function renderFill(q, qid) {
   var k = 0;
   var html = ('' + q.question).replace(/(_{2,}|＿+)/g, function () {
-    var inp = '<input type="text" class="fill-input" id="fill-' + qid + '-' + k + '" autocomplete="off" spellcheck="false">';
+    var inp = '<input type=“text” class=“fill-input” id=“fill-' + qid + '-' + k + '” autocomplete=“off” spellcheck=“false”>';
     k++;
     return inp;
   });
@@ -282,7 +282,7 @@ if (document.readyState === 'interactive' || document.readyState === 'complete')
 
 function sel(qid, idx) {
   var prefix = 'opt-' + qid + '-';
-  var all = document.querySelectorAll('[id^="' + prefix + '"]');
+  var all = document.querySelectorAll('[id^=“' + prefix + '"]');
   for (var i = 0; i < all.length; i++) all[i].classList.remove('selected');
   var target = document.getElementById('opt-' + qid + '-' + idx);
   if (target) target.classList.add('selected');

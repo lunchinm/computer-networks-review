@@ -207,7 +207,7 @@ var Q = [
   {"type": "choice", "points": 2, "question": "ARP 协议的主要功能是：", "options": ["A. 将 IP 地址解析为物理地址", "B. 将物理地址解析为 IP 地址", "C. 将主机域名解析为 IP 地址", "D. 将 IP 地址解析为主机域名"], "answer": 0, "explanation": "ARP（地址解析协议）将 IP 地址解析为 MAC 地址。RARP 做反向解析，DNS 做域名解析。"},
   {"type": "choice", "points": 2, "question": "FTP 协议服务器端默认监听哪个端口？", "options": ["A. 8080", "B. 80", "C. 25", "D. 21"], "answer": 3, "explanation": "FTP 控制连接端口 21，数据连接端口 20。HTTP 端口 80，SMTP 端口 25，HTTPS 端口 443。"},
   {"type": "choice", "points": 2, "question": "以下设备中，属于数据链路层的是：", "options": ["A. 中继器", "B. 集线器", "C. 交换机", "D. 路由器"], "answer": 2, "explanation": "中继器和集线器工作在物理层，交换机工作在数据链路层（根据 MAC 地址转发），路由器工作在网络层。"},
-  {"type": "choice", "points": 2, "question": "术语 10Base5 中的"5"表示：", "options": ["A. 使用 50Ω 阻抗的细缆", "B. 最大传输距离 50 米", "C. 最大传输距离 500 米的粗缆", "D. 使用五类双绞线"], "answer": 2, "explanation": "10Base5：10Mbps 速率，基带传输，最大网段长度 500 米。10Base2 中的"2"表示 185 米（约 200 米），10BaseT 中的"T"表示双绞线。"},
+  {"type": "choice", "points": 2, "question": "术语 10Base5 中的“5”表示：", "options": ["A. 使用 50Ω 阻抗的细缆", "B. 最大传输距离 50 米", "C. 最大传输距离 500 米的粗缆", "D. 使用五类双绞线"], "answer": 2, "explanation": "10Base5：10Mbps 速率，基带传输，最大网段长度 500 米。10Base2 中的“2”表示 185 米（约 200 米），10BaseT 中的“T”表示双绞线。"},
   {"type": "choice", "points": 2, "question": "在 TCP 中，发送报文段中确认字段的值定义了与一方期望接收的下一个______字节相关的序列号。", "options": ["A. 上一个", "B. 当前", "C. 下一个", "D. 任意"], "answer": 2, "explanation": "ACK 号表示已成功接收该序号之前的所有数据，期望接收的下一个字节的序列号。"},
   {"type": "choice", "points": 2, "question": "在 TCP 的______阶段，拥塞窗口的大小线性增加。", "options": ["A. 拥塞避免", "B. 慢启动", "C. 快重传", "D. 快恢复"], "answer": 0, "explanation": "慢启动阶段是指数增长（每 RTT 翻倍），拥塞避免阶段是线性增长（每 RTT +1 MSS）。"},
   {"type": "choice", "points": 2, "question": "MSS 通常是通过首先确定本地发送主机可以发送的最大链路层帧的长度（即______）来设置的。", "options": ["A. MTBF", "B. MSL", "C. MTU", "D. MFS"], "answer": 2, "explanation": "MTU（最大传输单元）是链路层帧的数据字段最大长度。MSS = MTU - IP 头 - TCP 头，通常为 1460 字节（以太网 MTU=1500）。"},
@@ -225,10 +225,10 @@ var Q = [
   {"type": "tf", "points": 1, "question": "考虑一条传输速率为 R 的链路前的队列。假设包每隔 1/a 秒周期到达，包长均为 L。若 aL < R，则排队时延应该很小且有界。", "answer": 0, "explanation": "正确。包到达速度（aL）小于传输速度（R），队列压力小，排队时间短且有上界。"},
   {"type": "tf", "points": 1, "question": "Tracert 程序可以向任何 DNS 服务器发送 DNS 查询并显示回复中的记录。", "answer": 1, "explanation": "错误。Tracert 通过 TTL 进行路由追踪，与 DNS 无关。此功能属于 nslookup 命令。"},
   {"type": "tf", "points": 1, "question": "邮件客户端无法通过 HTTP（而非 SMTP）发送电子邮件。", "answer": 1, "explanation": "错误。使用网页版邮箱（浏览器访问）发送邮件时，客户端到邮件服务器之间使用 HTTP 协议。"},
-  {"type": "tf", "points": 1, "question": "网络中"尽力而为"服务与 TCP 提供的"可靠"服务含义相同。", "answer": 1, "explanation": "错误。"尽力而为"是 IP 网络层提供的服务，不保证可靠数据传输。TCP 通过确认、重传等机制在不可靠的 IP 之上提供可靠传输。"},
+  {"type": "tf", "points": 1, "question": "网络中“尽力而为”服务与 TCP 提供的“可靠”服务含义相同。", "answer": 1, "explanation": "错误。“尽力而为”是 IP 网络层提供的服务，不保证可靠数据传输。TCP 通过确认、重传等机制在不可靠的 IP 之上提供可靠传输。"},
   {"type": "tf", "points": 1, "question": "在 GBN（回退 N 步）协议中，接收方收到失序数据包时会将其丢弃，并为最近收到的按序数据包重新发送 ACK。", "answer": 0, "explanation": "正确。GBN 采用累积确认，接收方只接受按序到达的包，失序包直接丢弃。"},
   {"type": "tf", "points": 1, "question": "如果某些路由器的路由表存在错误，IPv4 中的数据包可能会永远循环。", "answer": 1, "explanation": "错误。IPv4 数据包头部有 TTL（生存时间）字段，每经过一个路由器 TTL 减 1，减到 0 时丢弃，防止无限循环。"},
-  {"type": "tf", "points": 1, "question": "在距离向量路由中，如果减小一条链路的代价，会发生无穷计数问题。", "answer": 1, "explanation": "错误。无穷计数问题发生在链路代价增大时（"坏消息传得慢"）。链路代价减小时（"好消息"）收敛很快。"},
+  {"type": "tf", "points": 1, "question": "在距离向量路由中，如果减小一条链路的代价，会发生无穷计数问题。", "answer": 1, "explanation": "错误。无穷计数问题发生在链路代价增大时（“坏消息传得慢”）。链路代价减小时（“好消息”）收敛很快。"},
   {"type": "tf", "points": 1, "question": "在 CSMA/CD 网络中，要求传输时间大于 2 倍传播时间，以便发送方在传输完成前能检测到碰撞。", "answer": 0, "explanation": "正确。最坏情况：数据到达接收方前一刻发生碰撞，碰撞信号返回发送方需要 Tprop，总共 2×Tprop。发送方必须在帧发送完之前收到碰撞信号。"},
   {"type": "tf", "points": 1, "question": "交换机的转发表是自动、动态、自主建立的，这种能力称为自学习。因此交换机是即插即用设备。", "answer": 0, "explanation": "正确。交换机通过自学习算法自动建立 MAC 地址表，无需人工配置，属于即插即用设备。"},
 
@@ -319,32 +319,32 @@ function build() {
     var q = Q[i];
     if (q.type !== sec) { sec = q.type; if (titles[q.type]) h += '<h3>' + titles[q.type] + '</h3>'; }
     var qid = 'q' + i;
-    h += '<div class="q-card" id="card-' + qid + '">';
-    h += '<div class="q-num">' + (i + 1) + '. (' + q.points + ' ' + LABELS.points_suffix + ')</div>';
+    h += '<div class=“q-card” id=“card-' + qid + '”>';
+    h += '<div class=“q-num”>' + (i + 1) + '. (' + q.points + ' ' + LABELS.points_suffix + ')</div>';
     if (q.type === 'fill') {
-      h += '<div class="q-text">' + renderFill(q, qid) + '</div>';
+      h += '<div class=“q-text”>' + renderFill(q, qid) + '</div>';
     } else {
-      h += '<div class="q-text">' + q.question + '</div>';
+      h += '<div class=“q-text”>' + q.question + '</div>';
     }
     if (q.type === 'choice') {
       var opts = q.options || [];
       for (var j = 0; j < opts.length; j++) {
-        h += '<label class="option" id="opt-' + qid + '-' + j + '" onclick="sel(\'' + qid + '\',' + j + ')">';
-        h += '<input type="radio" name="' + qid + '" value="' + j + '">' + opts[j] + '</label>';
+        h += '<label class=“option” id=“opt-' + qid + '-' + j + '” onclick=“sel(\'' + qid + '\',' + j + ')”>';
+        h += '<input type=“radio” name=“' + qid + '” value=“' + j + '”>' + opts[j] + '</label>';
       }
     } else if (q.type === 'tf') {
-      h += '<label class="option" id="opt-' + qid + '-0" onclick="sel(\'' + qid + '\',0)">';
-      h += '<input type="radio" name="' + qid + '" value="0">' + LABELS.true_label + '</label>';
-      h += '<label class="option" id="opt-' + qid + '-1" onclick="sel(\'' + qid + '\',1)">';
-      h += '<input type="radio" name="' + qid + '" value="1">' + LABELS.false_label + '</label>';
+      h += '<label class=“option” id=“opt-' + qid + '-0” onclick=“sel(\'' + qid + '\',0)”>';
+      h += '<input type=“radio” name=“' + qid + '” value=“0”>' + LABELS.true_label + '</label>';
+      h += '<label class=“option” id=“opt-' + qid + '-1” onclick=“sel(\'' + qid + '\',1)”>';
+      h += '<input type=“radio” name=“' + qid + '” value=“1”>' + LABELS.false_label + '</label>';
     } else if (q.type === 'fill') {
       // already rendered
     } else {
-      h += '<textarea class="q-textarea" id="text-' + qid + '" placeholder="' + LABELS.placeholder + '" rows="3"></textarea>';
+      h += '<textarea class=“q-textarea” id=“text-' + qid + '” placeholder=“' + LABELS.placeholder + '” rows=“3”></textarea>';
     }
-    h += '<div class="result" id="result-' + qid + '">';
-    h += '<span class="badge" id="badge-' + qid + '"></span><span id="correct-' + qid + '"></span>';
-    h += '<div class="explanation">' + (q.explanation || '') + '</div>';
+    h += '<div class=“result” id=“result-' + qid + '”>';
+    h += '<span class=“badge” id=“badge-' + qid + '”></span><span id=“correct-' + qid + '”></span>';
+    h += '<div class=“explanation”>' + (q.explanation || '') + '</div>';
     h += '</div></div>';
   }
   container.innerHTML = h;
@@ -355,7 +355,7 @@ function renderFill(q, qid) {
   var nBlanks = fillBlankCount(q.question);
   var k = 0;
   var html = ('' + q.question).replace(/(_{2,}|＿+)/g, function () {
-    var inp = '<input type="text" class="fill-input" id="fill-' + qid + '-' + k + '" autocomplete="off" spellcheck="false">';
+    var inp = '<input type=“text” class=“fill-input” id=“fill-' + qid + '-' + k + '” autocomplete=“off” spellcheck=“false”>';
     k++;
     return inp;
   });
@@ -367,7 +367,7 @@ if (document.readyState === 'interactive' || document.readyState === 'complete')
 
 function sel(qid, idx) {
   var prefix = 'opt-' + qid + '-';
-  var all = document.querySelectorAll('[id^="' + prefix + '"]');
+  var all = document.querySelectorAll('[id^=“' + prefix + '"]');
   for (var i = 0; i < all.length; i++) all[i].classList.remove('selected');
   var target = document.getElementById('opt-' + qid + '-' + idx);
   if (target) target.classList.add('selected');
